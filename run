@@ -1,0 +1,73 @@
+#! /usr/bin/env python
+"""
+Execution script for the PanTools snakemake pipeline.
+"""
+import argparse
+import os.path
+import snakemake
+import sys
+from pathlib import Path
+
+thisdir = os.path.abspath(os.path.dirname(__file__))
+
+def main(args):
+    # first, find the Snakefile
+    snakefile = os.path.join(thisdir, 'workflow/Snakefile')
+    if not os.path.exists(snakefile):
+        sys.stderr.write('Error: cannot find Snakefile at {}\n'.format(snakefile))
+        sys.exit(-1)
+
+    # find the config datasets
+    dataset = None
+    if args.dataset:
+        dataset = args.dataset
+    else:
+        p = Path(os.path.join(thisdir, 'config'))
+        configs = [x.name for x in p.iterdir() if x.is_dir()]
+        if len(configs) == 0:
+            sys.stderr.write('Error: no dataset found\n')
+            sys.exit(-1)
+        elif len(configs) == 1:
+            dataset = configs[0]
+        else:
+            print("Available datasets: {}".format(', '.join(configs)))
+            dataset = input("Choose one of the available datasets: ")
+    
+    configfile = os.path.join(thisdir, 'config', dataset, 'config.yaml')
+    # find the config
+    if not os.path.exists(configfile) or os.path.isdir(configfile):
+        sys.stderr.write('Error: cannot find dataset {}\n'.format(dataset))
+        sys.exit(-1)
+
+    # run snakemake
+    status = snakemake.snakemake(
+        snakefile,
+        configfiles=[configfile],
+        use_conda=True,
+        conda_frontend='mamba',
+        targets=args.targets,
+        until=[args.until] if args.until else [],
+        cores=args.cores,
+        dryrun=args.dry_run,
+        printshellcmds=args.printshellcmds,
+        quiet=args.quiet)
+        
+    if status: # translate "success" into shell exit code of 0
+       return 0
+    return 1
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description="Run all major PanTools functions for (one of) the included dataset(s).", 
+        usage="run [-n] [-p] [-q] [-c=<CORES>] [d=<DATASET>] [<targets>]")
+    
+    parser.add_argument('targets', nargs='*', default=[], help='runs the pipeline until it reaches the specified rules')
+    parser.add_argument('-u', '--until', help='runs the pipeline until it reaches the specified rules')
+    parser.add_argument('-c', '--cores', type=int, required=True, help='number of cores')
+    parser.add_argument('-d', '--dataset', help='name of the dataset')
+    parser.add_argument('-n', '--dry-run', action='store_true', help='do not execute anything, and display what would be done')
+    parser.add_argument('-p', '--printshellcmds', action='store_true', help='print out the shell commands that will be executed')
+    parser.add_argument('-q', '--quiet', action='store_true', help='do not output certain information')
+    args = parser.parse_args()
+
+    sys.exit(main(args))

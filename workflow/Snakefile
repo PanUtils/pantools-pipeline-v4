@@ -1,0 +1,50 @@
+"""
+Linux pipeline for Pantools 4.2.1.
+This pipeline runs all core functionalities of PanTools.
+Requires Java and Mamba.
+To execute, specify a configuration file for the dataset, e.g:
+
+snakemake --cores <cores> --configfiles <config.yaml>
+"""
+
+include: 'rules/common.smk'
+include: 'rules/validate_paths.smk'
+include: 'rules/pantools_construct.smk'
+include: 'rules/pantools_characterize.smk'
+include: 'rules/pantools_phylogeny.smk'
+include: 'rules/pantools_msa.smk'
+include: 'rules/pantools_explore.smk'
+include: 'rules/pantools_map.smk'
+include: 'rules/pantools_variation.smk'
+
+rule all_pangenome:
+    """Create a pangenome and run all major PanTools commands."""
+    input:
+        "{}/done/pangenome.ani.done".format(config['results']),
+        "{}/done/pangenome.consensus_tree.done".format(config['results']),
+        "{}/done/pangenome.gene_classification.done".format(config['results']),
+        "{}/done/pangenome.go_enrichment.done".format(config['results']),
+        "{}/done/pangenome.group_info.done".format(config['results']),
+        "{}/done/pangenome.grouping_overview.done".format(config['results']),
+        "{}/done/pangenome.functional_classification.done".format(config['results']),
+        "{}/done/pangenome.function_overview.done".format(config['results']),
+        "{}/done/pangenome.kmer_classification.done".format(config['results']),
+        "{}/done/pangenome.map.done".format(config['results']),
+        "{}/done/pangenome.metrics.done".format(config['results']),
+        "{}/done/pangenome.msa.done".format(config['results']),
+        "{}/done/pangenome.pangenome_structure.done".format(config['results']),
+        "{}/done/pangenome.pangenome_structure_kmer.done".format(config['results']),
+        "{}/done/pangenome.variation_overview.done".format(config['results']),
+
+rule all_panproteome:
+    """Create a panroteome and run all major available PanTools commands."""
+    input:
+        "{}/done/panproteome.consensus_tree.done".format(config['results']),
+        "{}/done/panproteome.gene_classification.done".format(config['results']),
+        "{}/done/panproteome.go_enrichment.done".format(config['results']),
+        "{}/done/panproteome.grouping_overview.done".format(config['results']),
+        "{}/done/panproteome.functional_classification.done".format(config['results']),
+        "{}/done/panproteome.function_overview.done".format(config['results']),
+        "{}/done/panproteome.metrics.done".format(config['results']),
+        "{}/done/panproteome.msa.done".format(config['results']),
+        "{}/done/panproteome.pangenome_structure.done".format(config['results']),

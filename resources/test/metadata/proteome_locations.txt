@@ -1,0 +1,5 @@
+resources/yeast_tiny_panproteome/proteomes/273614_chrI.pep.fa
+resources/yeast_tiny_panproteome/proteomes/BY_chrI.pep.fa
+resources/yeast_tiny_panproteome/proteomes/CBS2888_chrI.pep.fa
+resources/yeast_tiny_panproteome/proteomes/S288C_chrI.pep.fa
+resources/yeast_tiny_panproteome/proteomes/Y10_chrI.pep.fa
