@@ -1,6 +1,6 @@
 """
 Run PanTools subcommands for pangenome read mapping.
-Contains the followig subcommands:
+Contains the following subcommands:
 
 map
 """
