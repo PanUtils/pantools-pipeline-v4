@@ -16,6 +16,7 @@ include: 'rules/pantools_msa.smk'
 include: 'rules/pantools_explore.smk'
 include: 'rules/pantools_map.smk'
 include: 'rules/pantools_variation.smk'
+include: 'rules/panva.smk'
 
 rule all_pangenome:
     """Create a pangenome and run all major PanTools commands."""
