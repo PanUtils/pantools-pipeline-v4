@@ -9,7 +9,6 @@ rule map:
     """Map single or paired-end short reads to one or multiple genomes in the pangenome."""
     input:
         "{results}/done/pangenome.build_pangenome.done",
-        genomes = config['genome_numbers'],
         sr1 = config['short_read_1'],
         sr2 = config['short_read_2'],
     output:
@@ -24,4 +23,4 @@ rule map:
     threads:
         workflow.cores * 0.9
     shell:
-        "{pantools} map -f -t={threads} {params.opts} {params.database} {input.genomes} {input.sr1} {input.sr2}"
+        "{pantools} map -f -t={threads} {params.opts} {params.database} {input.sr1} {input.sr2}"
