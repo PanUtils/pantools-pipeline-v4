@@ -1,1 +1,0 @@
-4 resources/test/variation/S288C_chrI.pav.tsv

@@ -1,5 +1,0 @@
-1 resources/test/annotations/273614_chrI.gff
-2 resources/test/annotations/BY_chrI.gff
-3 resources/test/annotations/CBS2888_chrI.gff
-4 resources/test/annotations/S288C_chrI.gff
-5 resources/test/annotations/Y10_chrI.gff

@@ -176,7 +176,7 @@ rule group:
 rule optimal_grouping:
     """Find the most suitable settings for group using BUSCO output."""
     input:
-        "{{results}}/done/{{type}}.busco_protein.{busco}.done".format(busco=config['busco'])
+        "{{results}}/done/{{type}}.busco_protein.{busco}.done".format(busco=config['busco_protein.odb10'])
     output:
         touch("{results}/done/{type}.optimal_grouping.done"),
         "{results}/{type}_db/optimal_grouping/grouping_overview.csv",
@@ -184,7 +184,7 @@ rule optimal_grouping:
         "{results}/{type}_db/optimal_grouping/optimal_grouping.png",
     params:
         database = "{results}/{type}_db",
-        busco = config["busco"],
+        busco = config["busco_protein.odb10"],
         opts = config['optimal_grouping.opts'],
     benchmark:
         "{results}/benchmarks/{type}.optimal_grouping.txt"
@@ -201,6 +201,6 @@ rule optimal_grouping:
 checkpoint grouping:
     """"Checkpoint for an active grouping either using a given relaxation or BUSCO set"""
     input:
-        "{results}/done/{type}.group.done" if config['group.relaxation'] > 0 else "{results}/done/{type}.change_grouping.done"
+        "{results}/done/{type}.group.done" if config['group.relaxation'] else "{results}/done/{type}.change_grouping.done"
     output:
         touch("{results}/done/{type}.grouping.done")

@@ -7,6 +7,8 @@ To execute, specify a configuration file for the dataset, e.g:
 snakemake --cores <cores> --configfiles <config.yaml>
 """
 
+configfile: 'config/config.yaml'
+
 include: 'rules/common.smk'
 include: 'rules/validate_paths.smk'
 include: 'rules/pantools_construct.smk'

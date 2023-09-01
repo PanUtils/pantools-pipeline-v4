@@ -1,0 +1,1 @@
+4 resources/test_data/variation/subset_chrI.vcf.gz

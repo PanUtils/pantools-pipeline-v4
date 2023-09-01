@@ -1,5 +1,0 @@
-resources/test/genomes/273614_chrI.fna
-resources/test/genomes/BY_chrI.fna
-resources/test/genomes/CBS2888_chrI.fna
-resources/test/genomes/S288C_chrI.fna
-resources/test/genomes/Y10_chrI.fna

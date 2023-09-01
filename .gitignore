@@ -164,7 +164,7 @@ cython_debug/
 
 # Config files
 ./config/*
-!./config/test/
+!./config/test_data/
 
 # Resources
 ./resources/*

@@ -1,0 +1,5 @@
+1 resources/test_data/functions/273614_chrI.pep.fa.gff3
+2 resources/test_data/functions/BY_chrI.pep.fa.gff3
+3 resources/test_data/functions/CBS2888_chrI.pep.fa.gff3
+4 resources/test_data/functions/S288C_chrI.pep.fa.gff3
+5 resources/test_data/functions/Y10_chrI.pep.fa.gff3

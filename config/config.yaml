@@ -1,29 +1,34 @@
 # Config for PanTools pipeline on test dataset
 
-### HEAP SPACE AND DIRECTORY MANAGEMENT ###
-Xms: 20 # Java initial heap size (g)
-Xmx: 40 # Java maximum heap size (g)
+### JAVA SETTINGS ###
 
-### PATHS ###
-temp: "" # directory for temporary files, if empty the default temp directory will be used.
-results: "results/test" # path for pantools output
-pantools: "" # path to pantools jar file; only for development!!!
+# Java initial heap size (g)
+Xms: 20
+# Java maximum heap size (g)
+Xmx: 40
+# path to PanTools jar file; only for development!!!
+jar:
+
+### OUTPUT ###
+
+# custom scratch directory (default is system default)
+scratch:
+# path for pantools output (RAM or SSD is reccomended)
+results: results/test
 
 ### PARAMETERS ###
-# resources
-genomes: "resources/test/metadata/genome_locations.txt"
-annotations: "resources/test/metadata/annotation_locations.txt"
-proteomes: "resources/test/metadata/proteome_locations.txt"
-functions: "resources/test/metadata/function_locations.txt"
-vcf: "resources/test/metadata/variant_locations.txt"
-pav: "resources/test/metadata/pav_locations.txt"
-phenotypes: "resources/test/metadata/phenotypes_chrI.csv"
-short_read_1: "resources/test/reads/SRR800844_chrI_1.fq.gz"
-short_read_2: "resources/test/reads/SRR800844_chrI_2.fq.gz"
-busco: "saccharomycetes_odb10"
+genomes: resources/test_data/metadata/genome_locations.txt
+annotations: resources/test_data/metadata/annotation_locations.txt
+proteomes: resources/test_data/metadata/proteome_locations.txt
+functions: resources/test_data/metadata/function_locations.txt
+vcf: resources/test_data/metadata/variant_locations.txt
+pav: resources/test_data/metadata/pav_locations.txt
+phenotypes: resources/test_data/metadata/phenotypes_chrI.csv
+short_read_1: resources/test_data/reads/SRR800844_chrI_1.fq.gz
+short_read_2: resources/test_data/reads/SRR800844_chrI_2.fq.gz
 
 ### OPTIONAL ARGUMENTS ###
-add_annotations.opts: "--connect"
+add_annotations.opts: ""
 add_antismash.opts: ""
 add_functions.opts: ""
 add_genomes.opts: ""
@@ -33,18 +38,19 @@ add_phenotypes.opts: ""
 add_repeats.opts: ""
 add_synteny.opts: ""
 add_variants.opts: ""
-ani.opts: "-p=Name"
+ani.opts: ""
 blast.opts: ""
-build_pangenome.opts: "--kmer-size=13"
+build_pangenome.opts: ""
 build_panproteome.opts: ""
 busco_protein.opts: ""
+busco_protein.odb10: "" # required if relaxation is not set
 calculate_dn_ds.opts: ""
 calculate_synteny.opts: ""
 change_grouping.opts: ""
 compare_go.opts: ""
-consensus_tree.opts: "-v --pavs"
-core_phylogeny.mode: "ML"
-core_phylogeny.opts: "-p=Name -v --pavs"
+consensus_tree.opts: ""
+core_phylogeny.mode: ""
+core_phylogeny.opts: ""
 core_unique_thresholds.opts: ""
 create_tree_template.opts: ""
 export_pangenome.opts: ""
@@ -53,12 +59,12 @@ find_genes_by_name.opts: ""
 find_genes_in_region.opts: ""
 find_kmer.opts: ""
 function_overview.opts: ""
-functional_classification.opts: "-p=Name"
-gene_classification.opts: "--mlsa -p=Name" # output from --mlsa is used for mlsa
+functional_classification.opts: ""
+gene_classification.opts: "--mlsa" # output from --mlsa is used for mlsa
 gene_retention.opts: ""
 genome_alignment.opts: ""
 go_enrichment.opts: ""
-group.relaxation: 8 # will calculate if 0
+group.relaxation: 8 # will calculate using BUSCO if empty
 group.opts: ""
 group_info.opts: ""
 grouping_overview.opts: ""
@@ -67,14 +73,14 @@ kmer_info.opts: ""
 locate_genes.opts: ""
 map.opts: ""
 metrics.opts: ""
-mlsa.opts: "-p=Name"
+mlsa.opts: ""
 mlsa_concatenate.opts: ""
-mlsa_find_genes.opts: "--extensive"
+mlsa_find_genes.opts: ""
 move_grouping.opts: ""
-msa.opts: "-p -v --pavs"
+msa.opts: ""
 optimal_grouping.opts: ""
 order_matrix.opts: ""
-pangenome_structure.opts: "--pavs"
+pangenome_structure.opts: ""
 kmer_structure.opts: ""
 remove_annotations.opts: ""
 remove_functions.opts: ""
