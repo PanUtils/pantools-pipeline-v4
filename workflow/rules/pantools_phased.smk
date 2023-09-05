@@ -15,7 +15,7 @@ rule add_phasing:
         "{results}/done/pangenome.build_pangenome.done",
         phasing = config['phasing']
     output:
-        done = touch("{results}/done/pangneome.add_phasing.done"),
+        done = touch("{results}/done/pangenome.add_phasing.done"),
     params:
         database = "{results}/pangenome_db",
         opts = config['add_phasing.opts'],
