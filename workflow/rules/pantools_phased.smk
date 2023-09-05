@@ -5,13 +5,15 @@ Contains the following subcommands:
 add_phasing
 add_repeats
 repeat_overview
+calculate_synteny
 """
 
 rule all_phasing:
     input:
         f"{config['results']}/done/pangenome.add_phasing.done",
         f"{config['results']}/done/pangenome.add_repeats.done",
-        f"{config['results']}/done/pangenome.repeat_overview.done"
+        f"{config['results']}/done/pangenome.repeat_overview.done",
+        f"{config['results']}/done/pangenome.calculate_synteny.done"
 
 rule add_phasing:
     """Add phasing information to the pangenome."""
@@ -69,4 +71,22 @@ rule repeat_overview:
         workflow.cores * 0.6
     shell:
         "{pantools} repeat_overview -f {params.opts} {params.database}"
+
+rule calculate_synteny:
+    """Calculate synteny information using MCSCanX."""
+    input:
+        "{results}/done/pangenome.build_pangenome.done"
+    output:
+        touch("{results}/done/pangenome.calculate_synteny.done")
+    params:
+        database = "{results}/pangenome_db",
+        opts = config['calculate_synteny.opts'],
+    benchmark:
+        "{results}/benchmarks/pangenome.calculate_synteny.txt"
+    conda:
+        "../envs/pantools.yaml"
+    threads:
+        workflow.cores * 0.9
+    shell:
+        "{pantools} calculate_synteny -f {params.opts} -t {threads} {params.database}"
 
