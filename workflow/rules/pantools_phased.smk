@@ -14,7 +14,7 @@ rule all_phasing:
     input:
         f"{config['results']}/done/pangenome.add_phasing.done",
         f"{config['results']}/done/pangenome.repeat_overview.done",
-        f"{config['results']}/done/pangenome.synteny_statistics.done"
+        f"{config['results']}/done/pangenome.synteny_overview.done"
 
 rule add_phasing:
     """Add phasing information to the pangenome."""
