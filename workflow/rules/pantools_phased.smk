@@ -14,7 +14,8 @@ rule all_phasing:
     input:
         f"{config['results']}/done/pangenome.add_phasing.done",
         f"{config['results']}/done/pangenome.repeat_overview.done",
-        f"{config['results']}/done/pangenome.synteny_overview.done"
+        f"{config['results']}/done/pangenome.synteny_overview.done",
+        f"{config['results']}/done/pangenome.blast.done"
 
 rule add_phasing:
     """Add phasing information to the pangenome."""
@@ -129,4 +130,23 @@ rule synteny_overview:
         workflow.cores * 0.6
     shell:
         "{pantools} synteny_overview -f {params.opts} {params.database} {input.synteny}"
+
+rule blast:
+    """Run BLAST."""
+    input:
+        "{results}/done/pangenome.build_pangenome.done",
+        blast = config['blast']
+    output:
+        touch("{results}/done/pangenome.blast.done")
+    params:
+        database = "{results}/pangenome_db",
+        opts = config['blast.opts'],
+    benchmark:
+        "{results}/benchmarks/pangenome.blast.txt"
+    conda:
+        "../envs/pantools.yaml"
+    threads:
+        workflow.cores * 0.9
+    shell:
+        "{pantools} synteny_overview -f {params.opts} {params.database} {input.blast}"
 

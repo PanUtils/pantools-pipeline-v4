@@ -27,6 +27,7 @@ phenotypes: resources/test_data/metadata/phenotypes_chrI.csv
 phasing: resources/test_data/metadata/phasing_information.txt
 repeats:
 synteny:
+blast: resources/test_data/proteomes/BY_chrI.pep.fa
 short_read_1: resources/test_data/reads/SRR800844_chrI_1.fq.gz
 short_read_2: resources/test_data/reads/SRR800844_chrI_2.fq.gz
 
