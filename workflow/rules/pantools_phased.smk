@@ -6,14 +6,15 @@ add_phasing
 add_repeats
 repeat_overview
 calculate_synteny
+add_synteny
+synteny_statistics
 """
 
 rule all_phasing:
     input:
         f"{config['results']}/done/pangenome.add_phasing.done",
-        f"{config['results']}/done/pangenome.add_repeats.done",
         f"{config['results']}/done/pangenome.repeat_overview.done",
-        f"{config['results']}/done/pangenome.calculate_synteny.done"
+        f"{config['results']}/done/pangenome.synteny_statistics.done"
 
 rule add_phasing:
     """Add phasing information to the pangenome."""
@@ -77,7 +78,8 @@ rule calculate_synteny:
     input:
         "{results}/done/pangenome.group.done",
     output:
-        touch("{results}/done/pangenome.calculate_synteny.done")
+        touch("{results}/done/pangenome.calculate_synteny.done"),
+        synteny = "{results}/pangenome_db/synteny/mcscanx.collinearity"
     params:
         database = "{results}/pangenome_db",
         opts = config['calculate_synteny.opts'],
@@ -89,4 +91,41 @@ rule calculate_synteny:
         workflow.cores * 0.9
     shell:
         "{pantools} calculate_synteny -f {params.opts} -t {threads} {params.database}"
+
+rule add_synteny:
+    """Add synteny information to the pangenome."""
+    input:
+        "{results}/done/pangenome.group.done",
+        synteny = config['syneny'] if config['synteny'] else "{results}/pangenome_db/synteny/mcscanx.collinearity"
+    output:
+        touch("{results}/done/pangenome.add_synteny.done")
+    params:
+        database = "{results}/pangenome_db",
+        opts = config['add_synteny.opts'],
+    benchmark:
+        "{results}/benchmarks/pangenome.add_synteny.txt"
+    conda:
+        "../envs/pantools.yaml"
+    threads:
+        workflow.cores * 0.6
+    shell:
+        "{pantools} calculate_synteny -f {params.opts} {params.database} {input.synteny}"
+
+rule synteny_statistics:
+    """Provide synteny statistics."""
+    input:
+        "{results}/done/pangenome.add_synteny.done"
+    output:
+        touch("{results}/done/pangenome.synteny_statisitics.done")
+    params:
+        database = "{results}/pangenome_db",
+        opts = config['synteny_statistics.opts'],
+    benchmark:
+        "{results}/benchmarks/pangenome.synteny_statistics.txt"
+    conda:
+        "../envs/pantools.yaml"
+    threads:
+        workflow.cores * 0.6
+    shell:
+        "{pantools} synteny_statistics -f {params.opts} {params.database}"
 
