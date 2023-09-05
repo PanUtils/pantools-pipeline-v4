@@ -114,7 +114,8 @@ rule add_synteny:
 rule synteny_overview:
     """Provide synteny statistics."""
     input:
-        "{results}/done/pangenome.add_synteny.done"
+        "{results}/done/pangenome.add_synteny.done",
+        synteny = config['syneny'] if config['synteny'] else "{results}/pangenome_db/synteny/mcscanx.collinearity"
     output:
         touch("{results}/done/pangenome.synteny_overview.done")
     params:
@@ -127,5 +128,5 @@ rule synteny_overview:
     threads:
         workflow.cores * 0.6
     shell:
-        "{pantools} synteny_overview -f {params.opts} {params.database}"
+        "{pantools} synteny_overview -f {params.opts} {params.database} {input.synteny}"
 
