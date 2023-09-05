@@ -4,12 +4,14 @@ Contains the following subcommands:
 
 add_phasing
 add_repeats
+repeat_overview
 """
 
 rule all_phasing:
     input:
         f"{config['results']}/done/pangenome.add_phasing.done",
-        f"{config['results']}/done/pangenome.add_repeats.done"
+        f"{config['results']}/done/pangenome.add_repeats.done",
+        f"{config['results']}/done/pangenome.repeat_overview.done"
 
 rule add_phasing:
     """Add phasing information to the pangenome."""
@@ -49,4 +51,22 @@ rule add_repeats:
         workflow.cores * 0.6
     shell:
         "{pantools} add_repeats -f {params.opts} {params.database} {input.annotations}"
+
+rule repeat_overview:
+    """Provide repeat statistics."""
+    input:
+        "{results}/done/pangenome.add_repeats.done"
+    output:
+        touch("{results}/done/pangenome.repeat_overview.done")
+    params:
+        database = "{results}/pangenome_db",
+        opts = config['repeat_overview.opts'],
+    benchmark:
+        "{results}/benchmarks/pangenome.repeat_overview.txt"
+    conda:
+        "../envs/pantools.yaml"
+    threads:
+        workflow.cores * 0.6
+    shell:
+        "{pantools} repeat_overview -f {params.opts} {params.database}"
 
