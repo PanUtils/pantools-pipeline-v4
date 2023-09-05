@@ -75,7 +75,7 @@ rule repeat_overview:
 rule calculate_synteny:
     """Calculate synteny information using MCSCanX."""
     input:
-        "{results}/done/pangenome.build_pangenome.done"
+        "{results}/done/pangenome.group.done",
     output:
         touch("{results}/done/pangenome.calculate_synteny.done")
     params:
