@@ -24,6 +24,7 @@ functions: resources/test_data/metadata/function_locations.txt
 vcf: resources/test_data/metadata/variant_locations.txt
 pav: resources/test_data/metadata/pav_locations.txt
 phenotypes: resources/test_data/metadata/phenotypes_chrI.csv
+phasing: resources/test_data/metadata/phasing_information.txt
 short_read_1: resources/test_data/reads/SRR800844_chrI_1.fq.gz
 short_read_2: resources/test_data/reads/SRR800844_chrI_2.fq.gz
 
