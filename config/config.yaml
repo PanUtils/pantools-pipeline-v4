@@ -48,7 +48,7 @@ build_panproteome.opts: ""
 busco_protein.opts: ""
 busco_protein.odb10: "" # required if relaxation is not set
 calculate_dn_ds.opts: ""
-calculate_synteny.opts: ""
+calculate_synteny.opts: "--run"
 change_grouping.opts: ""
 compare_go.opts: ""
 consensus_tree.opts: ""
