@@ -109,7 +109,7 @@ rule add_synteny:
     threads:
         workflow.cores * 0.6
     shell:
-        "{pantools} calculate_synteny -f {params.opts} {params.database} {input.synteny}"
+        "{pantools} add_synteny -f {params.opts} {params.database} {input.synteny}"
 
 rule synteny_overview:
     """Provide synteny statistics."""
