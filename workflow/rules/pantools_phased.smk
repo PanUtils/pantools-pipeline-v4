@@ -111,21 +111,21 @@ rule add_synteny:
     shell:
         "{pantools} calculate_synteny -f {params.opts} {params.database} {input.synteny}"
 
-rule synteny_statistics:
+rule synteny_overview:
     """Provide synteny statistics."""
     input:
         "{results}/done/pangenome.add_synteny.done"
     output:
-        touch("{results}/done/pangenome.synteny_statisitics.done")
+        touch("{results}/done/pangenome.synteny_overview.done")
     params:
         database = "{results}/pangenome_db",
-        opts = config['synteny_statistics.opts'],
+        opts = config['synteny_overview.opts'],
     benchmark:
-        "{results}/benchmarks/pangenome.synteny_statistics.txt"
+        "{results}/benchmarks/pangenome.synteny_overview.txt"
     conda:
         "../envs/pantools.yaml"
     threads:
         workflow.cores * 0.6
     shell:
-        "{pantools} synteny_statistics -f {params.opts} {params.database}"
+        "{pantools} synteny_overview -f {params.opts} {params.database}"
 
