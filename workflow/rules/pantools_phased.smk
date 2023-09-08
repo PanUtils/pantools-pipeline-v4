@@ -13,9 +13,10 @@ synteny_statistics
 rule all_phasing:
     input:
         f"{config['results']}/done/pangenome.add_phasing.done",
-        f"{config['results']}/done/pangenome.repeat_overview.done",
+        #f"{config['results']}/done/pangenome.repeat_overview.done",
         f"{config['results']}/done/pangenome.synteny_overview.done",
-        f"{config['results']}/done/pangenome.blast.done"
+        f"{config['results']}/done/pangenome.blast.done",
+        f"{config['results']}/done/pangenome.calculate_dn_ds.done"
 
 rule add_phasing:
     """Add phasing information to the pangenome."""
@@ -149,4 +150,22 @@ rule blast:
         workflow.cores * 0.9
     shell:
         "{pantools} blast -f {params.opts} {params.database} {input.blast}"
+
+rule calculate_dn_ds:
+    """Run BLAST."""
+    input:
+        "{results}/done/pangenome.build_pangenome.done"
+    output:
+        touch("{results}/done/{type}.calculate_dn_ds.done")
+    params:
+        database = "{results}/{type}_db",
+        opts = config['calculate_dn_ds.opts'],
+    benchmark:
+        "{results}/benchmarks/{type}.calculate_dn_ds.txt"
+    conda:
+        "../envs/pantools.yaml"
+    threads:
+        workflow.cores * 0.9
+    shell:
+        "{pantools} calculate_dn_ds -f {params.opts} {params.database}"
 
