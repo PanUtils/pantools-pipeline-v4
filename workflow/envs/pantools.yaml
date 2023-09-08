@@ -7,3 +7,5 @@ dependencies:
   - bcftools=1.15.1
   - busco=5
   - blast=2.14.1
+  - pal2nal=14.1
+  - paml=4.10.6
