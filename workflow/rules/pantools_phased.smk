@@ -134,15 +134,15 @@ rule synteny_overview:
 rule blast:
     """Run BLAST."""
     input:
-        "{results}/done/pangenome.build_pangenome.done",
+        lambda wildcards: proteins_done(wildcards.type),
         blast = config['blast']
     output:
-        touch("{results}/done/pangenome.blast.done")
+        touch("{results}/done/{type}.blast.done")
     params:
-        database = "{results}/pangenome_db",
+        database = "{results}/{type}",
         opts = config['blast.opts'],
     benchmark:
-        "{results}/benchmarks/pangenome.blast.txt"
+        "{results}/benchmarks/{type}.blast.txt"
     conda:
         "../envs/pantools.yaml"
     threads:
