@@ -16,7 +16,9 @@ rule all_phasing:
         #f"{config['results']}/done/pangenome.repeat_overview.done",
         f"{config['results']}/done/pangenome.synteny_overview.done",
         f"{config['results']}/done/pangenome.blast.done",
-        f"{config['results']}/done/pangenome.calculate_dn_ds.done"
+        #f"{config['results']}/done/pangenome.calculate_dn_ds.done",
+        f"{config['results']}/done/pangenome.gene_retention.done",
+        f"{config['results']}/done/pangenome.sequence_visualization.done"
 
 rule add_phasing:
     """Add phasing information to the pangenome."""
@@ -167,5 +169,39 @@ rule calculate_dn_ds:
     threads:
         workflow.cores * 0.9
     shell:
-        "{pantools} calculate_dn_ds -f {params.opts} {params.database}"
+        "{pantools} calculate_dn_ds -f --threads {threads} {params.opts} {params.database}"
+
+rule gene_retention:
+    input:
+        "{results}/done/{type}.gene_retention.done"
+    output:
+        touch("{results}/done/{type}.gene_retention.done")
+    params:
+        database = "{results}/{type}_db",
+        opts = config['gene_retention.opts'],
+    benchmark:
+        "{results}/benchmarks/{type}.gene_retention.txt"
+    conda:
+        "../envs/pantools.yaml"
+    threads:
+        workflow.cores * 0.9
+    shell:
+        "{pantools} gene_retention -f {params.opts} --threads {threads} {params.database}"
+
+rule sequence_visualization:
+    input:
+        "{results}/done/{type}.sequence_visualization.done"
+    output:
+        touch("{results}/done/{type}.sequence_visualization.done")
+    params:
+        database = "{results}/{type}_db",
+        opts = config['sequence_visualization.opts'],
+    benchmark:
+        "{results}/benchmarks/{type}.sequence_visualization.txt"
+    conda:
+        "../envs/pantools.yaml"
+    threads:
+        workflow.cores * 0.6
+    shell:
+        "{pantools} sequence_visualization -f {params.opts} {params.database}"
 
