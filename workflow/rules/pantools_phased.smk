@@ -148,5 +148,5 @@ rule blast:
     threads:
         workflow.cores * 0.9
     shell:
-        "{pantools} synteny_overview -f {params.opts} {params.database} {input.blast}"
+        "{pantools} blast -f {params.opts} {params.database} {input.blast}"
 
