@@ -139,7 +139,7 @@ rule blast:
     output:
         touch("{results}/done/{type}.blast.done")
     params:
-        database = "{results}/{type}",
+        database = "{results}/{type}_db",
         opts = config['blast.opts'],
     benchmark:
         "{results}/benchmarks/{type}.blast.txt"
