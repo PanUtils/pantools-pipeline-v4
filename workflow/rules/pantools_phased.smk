@@ -173,7 +173,7 @@ rule calculate_dn_ds:
 
 rule gene_retention:
     input:
-        "{results}/done/{type}.gene_retention.done"
+        "{results}/done/{type}.add_synteny.done"
     output:
         touch("{results}/done/{type}.gene_retention.done")
     params:
@@ -190,7 +190,8 @@ rule gene_retention:
 
 rule sequence_visualization:
     input:
-        "{results}/done/{type}.sequence_visualization.done"
+        "{results}/done/{type}.add_synteny.done",
+        "{results}/done/{type}.gene_classification.done"
     output:
         touch("{results}/done/{type}.sequence_visualization.done")
     params:
