@@ -93,10 +93,10 @@ rule gene_classification:
 rule find_dispensable_homology_groups:
     """Find dispensible homology groups to use for go_enrichment."""
     input:
-        accessory = "results/{dataset}/{type}_db/gene_classification/accessory_groups.csv",
-        unique = "results/{dataset}/{type}_db/gene_classification/unique_groups.csv",
+        accessory = "{results}/{type}_db/gene_classification/accessory_groups.csv",
+        unique = "{results}/{type}_db/gene_classification/unique_groups.csv",
     output:
-        "results/{dataset}/{type}_db/gene_classification/dispensable_groups.csv",
+        "{results}/{type}_db/gene_classification/dispensable_groups.csv",
     shell:
         "awk 'BEGIN{{ORS = \",\";}} $1 !~ /^[G#]/ && $1 !~ /^$/' {input} | sed 's/,$/\\n/g' > {output}"
 
