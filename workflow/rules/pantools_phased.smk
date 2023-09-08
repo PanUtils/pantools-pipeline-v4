@@ -154,7 +154,7 @@ rule blast:
 rule calculate_dn_ds:
     """Run BLAST."""
     input:
-        "{results}/done/pangenome.build_pangenome.done"
+        "{results}/done/{type}.grouping.done"
     output:
         touch("{results}/done/{type}.calculate_dn_ds.done")
     params:
