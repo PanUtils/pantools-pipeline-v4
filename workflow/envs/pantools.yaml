@@ -6,6 +6,6 @@ dependencies:
   - pantools=4.2.2
   - bcftools=1.15.1
   - busco=5
-  - blast=2.14.1
+  - blast=2.12.0
   - pal2nal=14.1
   - paml=4.10.6
