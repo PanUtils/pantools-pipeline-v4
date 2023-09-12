@@ -8,7 +8,7 @@ msa
 rule msa:
     """Create multiple sequence alignments."""
     input:
-        "{results}/done/{type}.group.done",
+        "{results}/done/{type}.grouping.done",
         "{results}/done/{type}.add_functions.done" if config['functions'] else [],
         "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
         "{results}/done/{type}.add_variants.done" if config['vcf'] else [],
@@ -26,4 +26,3 @@ rule msa:
         workflow.cores * 0.9
     shell:
         "{pantools} msa -t={threads} {params.opts} {params.database}"
-        

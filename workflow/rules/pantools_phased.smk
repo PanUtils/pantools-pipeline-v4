@@ -80,7 +80,7 @@ rule repeat_overview:
 rule calculate_synteny:
     """Calculate synteny information using MCSCanX."""
     input:
-        "{results}/done/pangenome.group.done",
+        "{results}/done/pangenome.grouping.done",
     output:
         touch("{results}/done/pangenome.calculate_synteny.done"),
         synteny = "{results}/pangenome_db/synteny/mcscanx.collinearity"
@@ -99,7 +99,7 @@ rule calculate_synteny:
 rule add_synteny:
     """Add synteny information to the pangenome."""
     input:
-        "{results}/done/pangenome.group.done",
+        "{results}/done/pangenome.grouping.done",
         synteny = config['syneny'] if config['synteny'] else "{results}/pangenome_db/synteny/mcscanx.collinearity"
     output:
         touch("{results}/done/pangenome.add_synteny.done")
