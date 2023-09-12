@@ -1,0 +1,5 @@
+1_1,1_A
+1_2,1_B
+2_1,unphased
+3_1,unphased
+4_1,unphased
