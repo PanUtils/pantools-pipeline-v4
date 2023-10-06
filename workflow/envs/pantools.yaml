@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - pantools=4.2.2
+  - pantools=4.2.3
   - bcftools=1.15.1
   - busco=5
   - blast=2.12.0
