@@ -11,6 +11,8 @@ if config['jar']:
 else:
     pantools = "pantools -Xms{}g -Xmx{}g".format(config['Xms'], config['Xmx'])
 
+if config['nice']: pantools = f"nice -n {config['nice']} {pantools}"
+
 # Set the temporary directory based on system default or given path.
 temp = config['scratch'] if config['scratch'] else tempfile.gettempdir()
 temp_dir = tempfile.TemporaryDirectory(dir = temp).name
