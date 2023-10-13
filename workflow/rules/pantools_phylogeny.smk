@@ -17,7 +17,8 @@ rule core_phylogeny:
         "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
         "{results}/done/{type}.add_variants.done" if config['vcf'] else [],
         "{results}/done/{type}.add_pavs.done" if config['pav'] else [],
-        homology = "{results}/{type}_db/gene_classification/single_copy_orthologs.csv",
+        homology = "{results}/{type}_db/homology_selection.txt" if config['gene_selection'] \
+            else "{results}/{type}_db/gene_classification/single_copy_orthologs.csv"
     output:
         "{results}/{type}_db/core_snp_tree/sites_per_group.csv",
         done = touch("{results}/done/{type}.core_phylogeny.done"),
@@ -47,11 +48,13 @@ rule consensus_tree:
         "{results}/done/pangenome.gene_classification.done",
         "{results}/done/{type}.add_variants.done" if config['vcf'] else [],
         "{results}/done/{type}.add_pavs.done" if config['pav'] else [],
+        "{results}/{type}_db/homology_selection.txt" if config['gene_selection'] else []
     output:
         done = touch("{results}/done/{type}.consensus_tree.done"),
     params:
         database = "{results}/{type}_db",
         opts = config['consensus_tree.opts'],
+        homology = "-H={results}/{type}_db/homology_selection.txt" if config['gene_selection'] else ""
     benchmark:
         "{results}/benchmarks/{type}.consensus_tree.txt"
     conda:
@@ -59,7 +62,7 @@ rule consensus_tree:
     threads:
         workflow.cores * 0.9
     shell:
-        "{pantools} consensus_tree --threads={threads} {params.opts} {params.database}"
+        "{pantools} consensus_tree --threads={threads} {params.opts} {params.homology} {params.database}"
 
 rule ani:
     """Calculate Average Nucleotide Identity (ANI) scores between genomes."""

@@ -181,7 +181,7 @@ rule optimal_grouping:
         touch("{results}/done/{type}.optimal_grouping.done"),
         "{results}/{type}_db/optimal_grouping/grouping_overview.csv",
         "{results}/{type}_db/optimal_grouping/counts_per_busco.log",
-        "{results}/{type}_db/optimal_grouping/optimal_grouping.png",
+        "{results}/{type}_db/optimal_grouping/optimal_grouping.png"
     params:
         database = "{results}/{type}_db",
         busco = config["busco_protein.odb10"],
@@ -204,3 +204,20 @@ checkpoint grouping:
         "{results}/done/{type}.group.done" if config['group.relaxation'] else "{results}/done/{type}.change_grouping.done"
     output:
         touch("{results}/done/{type}.grouping.done")
+
+rule get_group_ids:
+    input:
+        all_groups = "{results}/{type}_db/pantools_homology_groups.txt",
+        gene_selection = config["gene_selection"]
+    output:
+        "{results}/{type}_db/homology_selection.txt"
+    shell:
+        """
+        touch temp_homology_groups.txt
+        while IFS= read -r line
+        do
+            grep "$line" {input.all_groups} | sed 's/:.*$//g' >> temp_homology_groups.txt
+        done <  {input.gene_selection}
+        tr '\\n' ',' < temp_homology_groups.txt > {output}
+        rm temp_homology_groups.txt
+        """
