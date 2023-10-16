@@ -4,13 +4,13 @@ Prepare PanTools output for PanVa.
 
 rule to_panva:
     input:
-        lambda wildcards: msa_done("pangenome"),
-        "{results}/done/pangenome.ani.done",
-        "{results}/done/pangenome.gene_classification.done",
-        "{results}/done/pangenome.group_info.done",
-        "{results}/done/pangenome.kmer_classification.done"
+        lambda wildcards: msa_done(wildcards.type),
+        "{results}/done/{type}.ani.done",
+        "{results}/done/{type}.gene_classification.done",
+        "{results}/done/{type}.group_info.done",
+        "{results}/done/{type}.kmer_classification.done"
     output:
-        touch("{results}/done/panva.done")
+        touch("{results}/done/{type}.panva.done")
     params:
         panva_config = config['panva_config']
     conda:
@@ -21,4 +21,4 @@ rule to_panva:
 rule panva:
     """""Run all PanTools functions necessary to create a PanVa instance."""
     input:
-        "{}/done/panva.done".format(config['results'])
+        "{}/done/pangenome.panva.done".format(config['results'])
