@@ -66,7 +66,7 @@ def main():
     panva_dir_name = pangenome_name + "_" + group_name + "_panva_input"
     panva_dir_path = os.path.join(panva_path, panva_dir_name)
     try:
-        os.mkdir(panva_dir_path)
+        os.makedirs(panva_dir_path, exist_ok=True)
     except FileExistsError:
         pass
     panva_path = os.path.join(panva_dir_path, "homology")
