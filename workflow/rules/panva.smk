@@ -16,7 +16,7 @@ rule to_panva:
     conda:
         "../envs/pantova.yaml"
     shell:
-        "python3 workflow/scripts/panva/pant_to_va.py {params.panva_config}"
+        "python3 workflow/scripts/panva/pan_to_va.py {params.panva_config}"
 
 rule panva:
     """""Run all PanTools functions necessary to create a PanVa instance."""
