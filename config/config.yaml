@@ -9,7 +9,7 @@ Xmx: 40
 # path to PanTools jar file; only for development!!!
 jar:
 # nice priority
-nice: 16
+nice:
 
 ### OUTPUT ###
 
@@ -32,7 +32,7 @@ synteny:
 blast: resources/test_data/proteomes/BY_chrI.pep.fa
 short_read_1: resources/test_data/reads/SRR800844_chrI_1.fq.gz
 short_read_2: resources/test_data/reads/SRR800844_chrI_2.fq.gz
-gene_selection:
+gene_selection: ""
 
 ### OPTIONAL ARGUMENTS ###
 add_annotations.opts: "--connect"
