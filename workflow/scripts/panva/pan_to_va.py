@@ -45,15 +45,14 @@ def main():
     start_run = datetime.now()
     # Load configfile
     config = ConfigParser()
-    config.read(str(sys.argv[1]))
+    config.read(str(snakemake.params["panva_config"]))
     # Create log file
     log_file = str(config.get('GENERAL', 'logfile'))
     # Set run log file format
     logging.basicConfig(filename=log_file, format='%(asctime)s [%(levelname)s] - %(message)s',
                         datefmt='%m/%d/%Y %I:%M:%S %p', filemode='a', level=logging.DEBUG)
     logging.info('Pre-processing started.')
-    logging.info("Command: '{}'".format(str(sys.argv)))
-    logging.info("Configuration file used: '{}'.".format(str(sys.argv[1])))
+    logging.info("Configuration file used: '{}'.".format(str(snakemake.params["panva_config"])))
     # GENERAL settings
     # Set PanTools database location from config
     pangenome_path = config.get('GENERAL', 'pangenome_path')
