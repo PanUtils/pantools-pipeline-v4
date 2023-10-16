@@ -4,11 +4,11 @@ Prepare PanTools output for PanVa.
 
 rule to_panva:
     input:
+        lambda wildcards: msa_done("pangenome"),
         "{results}/done/pangenome.ani.done",
         "{results}/done/pangenome.gene_classification.done",
         "{results}/done/pangenome.group_info.done",
-        "{results}/done/pangenome.kmer_classification.done",
-        "{results}/done/pangenome.msa.done"
+        "{results}/done/pangenome.kmer_classification.done"
     output:
         touch("{results}/done/panva.done")
     params:
