@@ -9,6 +9,7 @@ rule msa_variants:
     """Create multiple sequence alignments including variants."""
     input:
         "{results}/done/{type}.grouping.done",
+        "{results}/done/{type}.add_variants.done",
         "{results}/done/{type}.add_functions.done" if config['functions'] else [],
         "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
         "{results}/done/{type}.add_pavs.done" if config['pav'] else [],
