@@ -12,7 +12,7 @@ import numpy as np
 # Functions:
 
 
-def genome_annotation(single_path, panva_p):
+def genome_annotation(single_path, panva_p, msa_type):
     """
     If the reference genomes have VCF files collect this information
 
@@ -26,7 +26,10 @@ def genome_annotation(single_path, panva_p):
     # panva out path
     panva_out = os.path.join(panva_p, hom_id)
     # get the hom group id and add required file to path
-    hom_trimm_inf_path = os.path.join(single_path, "input/trimmed.info")
+    if msa_type == 'msa_per_group_var':
+        hom_trimm_inf_path = os.path.join(single_path, "input/var_trimmed.info")
+    else:
+        hom_trimm_inf_path = os.path.join(single_path, "input/trimmed.info")
 
     with open(hom_trimm_inf_path, 'r') as trim:
         trim_lines = trim.readlines()
@@ -217,7 +220,7 @@ def genome_annot_al_pos(single_path, panva_p, lst_refs, df_ref_trimmed):
     return
 
 
-def pool3wrap(single_id_path, panva_path):
+def pool3wrap(single_id_path, panva_path, msa_type):
     """
     Wrapper function to make use of multiprocessing. executes genome_annotation.
 
@@ -226,7 +229,7 @@ def pool3wrap(single_id_path, panva_path):
     :return:
     """
 
-    ref_list, df_refs = genome_annotation(single_id_path, panva_path)
+    ref_list, df_refs = genome_annotation(single_id_path, panva_path, msa_type)
     genome_annot_al_pos(single_id_path, panva_path, ref_list, df_refs)
 
     return

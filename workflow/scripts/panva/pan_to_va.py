@@ -196,7 +196,7 @@ def main():
         print("Making annotations.csv, last pre-processing step.")
         print("Note progress bar*: Updates on next group start not on group done")
         with Pool(core_count) as pool_3:
-            pool_3.starmap(pool3wrap, tqdm.tqdm(zip(id_list_filt, repeat(panva_path)), total=len(id_list_filt)))
+            pool_3.starmap(pool3wrap, tqdm.tqdm(zip(id_list_filt, repeat(panva_path)), total=len(id_list_filt)), msa_type)
         pool_3.close()
         annot_time = datetime.now()
         logging.info('Time passed making annotation(s) files for the homology groups: {}'.format(annot_time-json_time))
