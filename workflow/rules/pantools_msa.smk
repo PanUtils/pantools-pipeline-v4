@@ -91,7 +91,7 @@ rule msa_nucleotides:
     shell:
         """
         {pantools} msa \
-            --aling-nucleotide \
+            --align-nucleotide \
             --trim-using-proteins \
             -t={threads} \
             {params.opts} \
