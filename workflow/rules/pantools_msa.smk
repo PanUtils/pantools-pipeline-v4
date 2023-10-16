@@ -60,7 +60,6 @@ rule msa_proteins:
         """
         {pantools} msa \
             --align-protein \
-            --no-trimming \
             -t={threads} \
             {params.opts} \
             {params.homology} \
