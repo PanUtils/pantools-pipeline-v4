@@ -1,6 +1,6 @@
 """
 Run PanTools subcommands for phylogeny in the pangenome.
-Contains the followig subcommands:
+Contains the following subcommands:
 
 ani
 consensus_tree
@@ -13,6 +13,7 @@ mlsa
 rule core_phylogeny:
     """Create a SNP tree from single-copy genes."""
     input:
+        lambda wildcards: msa_done(wildcards.type),
         "{results}/done/{type}.grouping.done",
         "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
         "{results}/done/{type}.add_variants.done" if config['vcf'] else [],
@@ -45,6 +46,7 @@ rule core_phylogeny:
 rule consensus_tree:
     """Create a consensus tree by combining gene trees from homology groups using ASTRAL-Pro."""
     input:
+        lambda wildcards: msa_done(wildcards.type),
         "{results}/done/pangenome.gene_classification.done",
         "{results}/done/{type}.add_variants.done" if config['vcf'] else [],
         "{results}/done/{type}.add_pavs.done" if config['pav'] else [],

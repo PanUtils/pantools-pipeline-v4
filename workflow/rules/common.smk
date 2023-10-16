@@ -19,7 +19,15 @@ temp_dir = tempfile.TemporaryDirectory(dir = temp).name
 
 # Gives needed input for functions that use proteins depending on db type.
 def proteins_done(db_type):
-    if (db_type == 'pangenome'):
-        return("{results}/done/pangenome.add_annotations.done")
+    if db_type == 'pangenome':
+        return "{results}/done/pangenome.add_annotations.done"
     else: 
-        return("{results}/done/panproteome.build_panproteome.done")
+        return "{results}/done/panproteome.build_panproteome.done"
+
+def msa_done(db_type):
+    if config['vcf']:
+        return "{results}/done/{type}.msa_variants.done"
+    if db_type == 'pangenome':
+        return "{results}/done/{type}.msa_nucleotide.done"
+    else:
+        return "{results}/done/{type}.msa_protein.done"

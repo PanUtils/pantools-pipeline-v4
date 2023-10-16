@@ -156,6 +156,7 @@ rule blast:
 rule calculate_dn_ds:
     """Run BLAST."""
     input:
+        lambda wildcards: msa_done(wildcards.type),
         "{results}/done/{type}.grouping.done"
     output:
         touch("{results}/done/{type}.calculate_dn_ds.done")

@@ -1,6 +1,6 @@
 """
 Run PanTools subcommands for pangenome exploration.
-Contains the followig subcommands:
+Contains the following subcommands:
 
 compare_go
 group_info

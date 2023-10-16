@@ -1,6 +1,6 @@
 """
 Run PanTools subcommands for construction.
-Contains the followig subcommands:
+Contains the following subcommands:
 
 add_annotations
 add_functions

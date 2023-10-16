@@ -1,6 +1,6 @@
 """
 Run PanTools subcommands for adding variation to the pangenome.
-Contains the followig subcommands:
+Contains the following subcommands:
 
 add_pavs
 add_variants

@@ -1,6 +1,6 @@
 """
 Run PanTools subcommands for classification.
-Contains the followig subcommands:
+Contains the following subcommands:
 
 functional_classification
 function_overview
