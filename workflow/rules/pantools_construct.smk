@@ -212,12 +212,4 @@ rule get_group_ids:
     output:
         "{results}/{type}_db/homology_selection.txt"
     shell:
-        """
-        touch temp_homology_groups.txt
-        while IFS= read -r line
-        do
-            grep "$line" {input.all_groups} | sed 's/:.*$//g' >> temp_homology_groups.txt
-        done <  {input.gene_selection}
-        tr '\\n' ',' < temp_homology_groups.txt > {output}
-        rm temp_homology_groups.txt
-        """
+        "../scripts/homology_selection.sh"
