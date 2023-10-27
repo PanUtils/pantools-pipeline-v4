@@ -211,5 +211,5 @@ rule get_group_ids:
         gene_selection = config["gene_selection"]
     output:
         "{results}/{type}_db/homology_selection.txt"
-    shell:
+    script:
         "../scripts/homology_selection.sh"
