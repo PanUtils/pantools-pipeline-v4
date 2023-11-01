@@ -55,15 +55,8 @@ def create_seq_info(single_id_path, panva_p):
     single_id_acc_inf = os.path.join(single_id_path, "input/genome_order.info")
     # naming column to mRNA_id for merging purposes in the even there is resequenced accessions in the data
     seq_acc_info = pd.read_csv(single_id_acc_inf, header=0, names=['genome_nr', 'mRNA_id'])
-    # print(seq_acc_info)
-    seq_acc_info['genome_nr'] = seq_acc_info['genome_nr'].apply(pd.to_numeric, errors='coerce')
-    # print(seq_acc_info)
-    seq_acc_info['genome_nr'] = seq_acc_info['genome_nr']
-
-    df_seq_info['genome_nr'] = df_seq_info['genome_nr'].astype(int)
 
     df_seq_info = pd.merge(df_seq_info, seq_acc_info, on=['genome_nr', 'mRNA_id'], how='outer')
-    df_seq_info['genome_nr'] = df_seq_info['genome_nr'].astype('Int64')
     df_seq_info.to_csv(os.path.join(os.path.join(panva_p, single_id), "sequence.info"), index=False)
 
     return df_seq_info

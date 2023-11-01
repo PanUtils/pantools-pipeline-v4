@@ -76,7 +76,6 @@ def pheno_meta_maker(ptools_db_path):
     df_phenos = pd.DataFrame.from_dict(pheno_dict)
 
     # typecast and json dump
-    df_phenos['genome_nr'] = df_phenos['genome_nr'].astype(int)
     df_phenos['pheno_node_id'] = df_phenos['pheno_node_id'].astype(int)
     df_phenos = df_phenos.sort_values(by=['genome_nr'])
 
@@ -115,11 +114,9 @@ def hom_group_pheno(single_id_path, panva_path, df_phenos, df_seq_info):
     # make output to panva
     hom_grp_pheno_pva = os.path.join(panva_path, hom_id)
 
-    df_phenos = df_phenos
-
     # merge information
     # hom_grp_pheno = hom_mrna_id_gnr.merge(df_phenos, on='genome_nr', how='left')
-    hom_grp_pheno = pd.merge(df_seq_info[['genome_nr', 'mRNA_id']], df_phenos, on='genome_nr', how='left')
+    hom_grp_pheno = pd.merge(df_seq_info[['genome_nr', 'mRNA_id']], df_phenos, on='genome_nr')
 
     hom_grp_pheno['genome_nr'] = hom_grp_pheno['genome_nr'].astype(int)
 

@@ -33,16 +33,8 @@ def prep_group_pheno(hom_id, panva_p, seqtype='nuc_trimmed', pheno_var=None, met
     all_info_seq = pd.merge(df_all_seq, df_seq_info, on=['mRNA_id'])
 
     # if both not none ADD phenometa data AND pheno specific var
-    if meta is not None and pheno_var is not None:
+    if meta is not None:
         # makes metadata.csv
-        # print("prep_group: meta present and pheno_var present")
-        new_thing = hom_group_pheno(hom_id, panva_p, meta, df_seq_info)
-        meta_info = alignment_posinfo(hom_id, panva_p, all_info_seq, method=seqtype, phe_var=pheno_var, meta=new_thing)
-
-    # if meta not None add phenometa but not pheno var
-    elif meta is not None and pheno_var is None:
-        # print("prep_group: meta present and pheno_var NOT present")
-        # should work otherwise make if statement based on pheno_var
         new_thing = hom_group_pheno(hom_id, panva_p, meta, df_seq_info)
         meta_info = alignment_posinfo(hom_id, panva_p, all_info_seq, method=seqtype, phe_var=pheno_var, meta=new_thing)
 
