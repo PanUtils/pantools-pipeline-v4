@@ -234,6 +234,14 @@ def main():
                 shutil.copyfile(core_snp_path, out_core_snp)
             except FileNotFoundError:
                 pass
+        elif 'ANI' in folder[0]:
+            ani_tree = 'MASH/ANI.newick'
+            core_snp_path = os.path.join(folder[0], ani_tree)
+            out_core_snp = os.path.join(panva_path, "ANI.txt")
+            try:
+                shutil.copyfile(core_snp_path, out_core_snp)
+            except FileNotFoundError:
+                pass
         # else:
         #     for file in glob.glob(os.path.join(folder[0], '*.newick')):
         #         shutil.copyfile(file, panva_path)
