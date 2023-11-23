@@ -85,4 +85,3 @@ dependencies:
   - yaml-cpp=0.7.0=h27087fc_2
   - zstandard=0.19.0=py311hbe0fcd7_1
   - zstd=1.5.2=h6239696_4
-prefix: /lustre/BIF/nobackup/vlugt012/miniconda3/envs/bckup_toolsva
