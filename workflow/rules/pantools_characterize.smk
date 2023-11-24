@@ -72,7 +72,6 @@ rule gene_classification:
         "{results}/{type}_db/gene_classification/group_identifiers/single_copy_orthologs.csv",
         "{results}/{type}_db/gene_classification/group_identifiers/unique_groups.csv",
         "{results}/{type}_db/gene_classification/classified_groups.csv",
-        "{results}/{type}_db/gene_classification/upset/upset_plot.R", #will not be run as r-upsetr is not a dependency of pantools
     params:
         database = "{results}/{type}_db",
         opts = config['gene_classification.opts'],
