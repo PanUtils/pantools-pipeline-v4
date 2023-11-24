@@ -3,7 +3,7 @@ General purpose Snakemake pipeline for PanTools v4.
 
 This pipeline can be used to run PanTools code for specific use cases and datasets.
 
-Requirements: Snakemake, Java, Mamba.
+Requirements: Snakemake, Mamba.
 
 ## Cloning this git
 For cloning this git, run:
