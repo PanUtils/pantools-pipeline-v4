@@ -3,7 +3,7 @@ General purpose Snakemake pipeline for PanTools v4.
 
 This pipeline can be used to run PanTools code for specific use cases and datasets.
 
-Requirements: Snakemake, Java, Mamba.
+Requirements: Snakemake, Mamba.
 
 ## Cloning this git
 For cloning this git, run:
@@ -34,3 +34,26 @@ Which can be activated and verified with
 conda activate snakemake
 snakemake --help
 ```
+
+## Running the pipeline
+## Run the pipeline
+The pipeline can be run with
+
+```bash
+snakemake [rule] --use-conda --cores <threads> [--configfile <config>]
+```
+
+Where <threads> is the number of threads to run on, and <config> a custom config file.
+If no config is provided, the pipeline will run on a small yeast test dataset.
+The possible rules are discussed below. The pipeline will run all major PanTools functions 
+for a pangenome if no rules are specified.
+
+## Rules
+### all_pangenome
+Create a pangenome and run all major PanTools analysis functions for pangenomes.
+
+### all_panproteome
+Create a panproteome and run all major PanTools analysis functions for panproteomes.
+
+### panva
+Create a pangenome and run all PanTools analysis functions required to make a PanVa instance.

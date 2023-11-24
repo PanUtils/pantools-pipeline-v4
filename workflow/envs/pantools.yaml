@@ -3,10 +3,4 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - pantools=4.2.3
-  - bcftools=1.15.1
-  - busco=5
-  - blast=2.12.0
-  - pal2nal=14.1
-  - paml=4.10.6
-  - r-cowplot=1.1.1
+  - pantools=4.3.0
