@@ -63,18 +63,16 @@ rule gene_classification:
         "{results}/done/{type}.add_pavs.done" if config['pav'] else [],
     output:
         touch("{results}/done/{type}.gene_classification.done"),
-        "{results}/{type}_db/gene_classification/accessory_combinations.csv",
-        "{results}/{type}_db/gene_classification/accessory_groups.csv",
-        "{results}/{type}_db/gene_classification/all_homology_groups.csv",
-        "{results}/{type}_db/gene_classification/classified_groups.csv",
-        "{results}/{type}_db/gene_classification/cnv_core_accessory.txt",
-        "{results}/{type}_db/gene_classification/core_groups.csv",
         "{results}/{type}_db/gene_classification/gene_classification_overview.txt",
-        "{results}/{type}_db/gene_classification/gene_distance.tree",
-        "{results}/{type}_db/gene_classification/group_size_occurrences.txt",
-        "{results}/{type}_db/gene_classification/shared_unshared_gene_count.csv",
-        "{results}/{type}_db/gene_classification/single_copy_orthologs.csv",
-        "{results}/{type}_db/gene_classification/unique_groups.csv",
+        "{results}/{type}_db/gene_classification/genome_gene_distance.tree",
+        "{results}/{type}_db/gene_classification/group_size_frequency.csv",
+        "{results}/{type}_db/gene_classification/group_identifiers/accessory_groups.csv",
+        "{results}/{type}_db/gene_classification/group_identifiers/all_homology_groups.csv",
+        "{results}/{type}_db/gene_classification/group_identifiers/core_groups.csv",
+        "{results}/{type}_db/gene_classification/group_identifiers/single_copy_orthologs.csv",
+        "{results}/{type}_db/gene_classification/group_identifiers/unique_groups.csv",
+        "{results}/{type}_db/gene_classification/classified_groups.csv",
+        "{results}/{type}_db/gene_classification/upset/upset_plot.R", #will not be run as r-upsetr is not a dependency of pantools
     params:
         database = "{results}/{type}_db",
         opts = config['gene_classification.opts'],
@@ -93,8 +91,8 @@ rule gene_classification:
 rule find_dispensable_homology_groups:
     """Find dispensible homology groups to use for go_enrichment."""
     input:
-        accessory = "{results}/{type}_db/gene_classification/accessory_groups.csv",
-        unique = "{results}/{type}_db/gene_classification/unique_groups.csv",
+        accessory = "{results}/{type}_db/gene_classification/group_identifiers/accessory_groups.csv",
+        unique = "{results}/{type}_db/gene_classification/group_identifiers/unique_groups.csv",
     output:
         "{results}/{type}_db/gene_classification/dispensable_groups.csv",
     shell:

@@ -160,18 +160,20 @@ cython_debug/
 #.idea/
 
 # Snakemake files
-./.snakemake/
+.snakemake/
 
 # Config files
-./config/*
-!./config/test_data/
+config/*
+!config/test_data/
 
 # Resources
-./resources/*
-!./resources/test
+resources/*
+!resources/test
 
 # Results
-./results/
+results/
 
 # busco downloads folder
-./busco_downloads/
+busco_downloads/
+
+
