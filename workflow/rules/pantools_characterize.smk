@@ -87,7 +87,7 @@ rule gene_classification:
     shell:
         """
         {pantools} gene_classification -f {params.opts} {params.database}
-        Rscript {params.database}/gene_classification/gene_distance_tree.R
+        Rscript {params.database}/gene_classification/genome_gene_distance_tree.R
         """
 
 rule find_dispensable_homology_groups:
