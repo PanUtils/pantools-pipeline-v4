@@ -11,12 +11,6 @@ rule to_panva:
         "{results}/done/{type}.kmer_classification.done"
     output:
         touch("{results}/done/{type}.panva.done")
-    params:
-        panva_config = config['panva_config']
-    conda:
-        "../envs/pantova.yaml"
-    script:
-        "../scripts/panva/pan_to_va.py"
 
 rule panva:
     """""Run all PanTools functions necessary to create a PanVa instance."""
