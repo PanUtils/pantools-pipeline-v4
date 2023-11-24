@@ -40,7 +40,7 @@ snakemake --help
 The pipeline can be run with
 
 ```bash
-snakemake [rule] --use-conda --conda-frontend 'mamba' --cores <threads> [--configfile <config>]
+snakemake [rule] --use-conda --cores <threads> [--configfile <config>]
 ```
 
 Where <threads> is the number of threads to run on, and <config> a custom config file.
