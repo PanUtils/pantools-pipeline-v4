@@ -34,7 +34,7 @@ snakemake --help
 The pipeline can be run with
 
 ```bash
-snakemake [rule] --use-conda --cores <threads> [--configfile <config>] [--conda-prefix <prefix>] [-U <function>]
+snakemake [rule] --use-conda --cores <threads> [--configfile <config>] [--conda-prefix <prefix>] [--until <function>]
 ```
 
 **threads**: number of threads to use. \
