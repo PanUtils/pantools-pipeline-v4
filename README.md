@@ -10,12 +10,6 @@ For cloning this git, run:
 ```bash
 https://github.com/PanUtils/pantools-pipeline-v4
 cd pantools-pipeline-v4
-```
-
-And check out a desired version (e.g. `v1.0.0`):
-```bash
-git checkout v1.0.0
-```
 
 ## Install Snakemake and Mamba
 If you don't have mamba, install it using
@@ -40,10 +34,14 @@ snakemake --help
 The pipeline can be run with
 
 ```bash
-snakemake [rule] --use-conda --cores <threads> [--configfile <config>]
+snakemake [rule] --use-conda --cores <threads> [--configfile <config>] [--conda-prefix <prefix>] [-U <function>]
 ```
 
-Where <threads> is the number of threads to run on, and <config> a custom config file.
+**threads**: number of threads to use. \
+**config**: custom configuration file. \
+**prefix**: path to directory containing conda environments for reuse. \
+**function**: name of a pantools function, the pipeline stops if this function is complete. \
+
 If no config is provided, the pipeline will run on a small yeast test dataset.
 The possible rules are discussed below. The pipeline will run all major PanTools functions 
 for a pangenome if no rules are specified.
