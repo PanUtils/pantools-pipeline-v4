@@ -8,8 +8,9 @@ Requirements: Snakemake, Mamba.
 ## Cloning this git
 For cloning this git, run:
 ```bash
-https://github.com/PanUtils/pantools-pipeline-v4
+git clone https://github.com/PanUtils/pantools-pipeline-v4
 cd pantools-pipeline-v4
+````
 
 ## Install Snakemake and Mamba
 If you don't have mamba, install it using
