@@ -15,8 +15,10 @@ nice:
 
 # custom scratch directory (default is system default)
 scratch:
-# path for pantools output (RAM or SSD is reccomended)
+# path for pantools output
 results: results/test
+# path for construction output (RAM or SSD is recommended)
+construction: results/test
 
 ### PARAMETERS ###
 genomes: resources/test_data/metadata/genome_locations.txt

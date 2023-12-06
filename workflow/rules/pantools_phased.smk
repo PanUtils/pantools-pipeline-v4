@@ -42,9 +42,8 @@ rule add_phasing:
 rule add_repeats:
     """Add repeats to the pangenome."""
     input:
-        "{results}/done/validate.annotations.done",
         "{results}/done/pangenome.build_pangenome.done",
-        annotations = config['annotations'],
+        repeats = config['repeats']
     output:
         touch("{results}/done/pangenome.add_repeats.done")
     params:
@@ -57,12 +56,12 @@ rule add_repeats:
     threads:
         workflow.cores * 0.6
     shell:
-        "{pantools} add_repeats -f {params.opts} {params.database} {input.annotations}"
+        "{pantools} add_repeats -f {params.opts} {params.database} {input.repeats}"
 
 rule repeat_overview:
     """Provide repeat statistics."""
     input:
-        "{results}/done/pangenome.add_repeats.done"
+        "{results}/done/pangenome.construction.done"
     output:
         touch("{results}/done/pangenome.repeat_overview.done")
     params:
@@ -118,7 +117,7 @@ rule add_synteny:
 rule synteny_overview:
     """Provide synteny statistics."""
     input:
-        "{results}/done/pangenome.add_synteny.done",
+        "{results}/done/pangnenome.construction.done",
         synteny = config['syneny'] if config['synteny'] else "{results}/pangenome_db/synteny/mcscanx.collinearity"
     output:
         touch("{results}/done/pangenome.synteny_overview.done")
@@ -137,7 +136,7 @@ rule synteny_overview:
 rule blast:
     """Run BLAST."""
     input:
-        lambda wildcards: proteins_done(wildcards.type),
+        "{results}/done/{type}.construction.done",
         blast = config['blast']
     output:
         touch("{results}/done/{type}.blast.done")
@@ -156,7 +155,7 @@ rule blast:
 rule calculate_dn_ds:
     """Run BLAST."""
     input:
-        lambda wildcards: msa_done(wildcards.type),
+        "{results}/done/{type}.msa.done",
         "{results}/done/{type}.grouping.done"
     output:
         touch("{results}/done/{type}.calculate_dn_ds.done")
@@ -174,7 +173,7 @@ rule calculate_dn_ds:
 
 rule gene_retention:
     input:
-        "{results}/done/{type}.add_synteny.done"
+        "{results}/done/{type}.construction.done"
     output:
         touch("{results}/done/{type}.gene_retention.done")
     params:
@@ -191,7 +190,7 @@ rule gene_retention:
 
 rule sequence_visualization:
     input:
-        "{results}/done/{type}.add_synteny.done",
+        "{results}/done/{type}.construction.done",
         "{results}/done/{type}.gene_classification.done"
     output:
         touch("{results}/done/{type}.sequence_visualization.done")

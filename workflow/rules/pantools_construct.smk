@@ -199,7 +199,7 @@ rule optimal_grouping:
         """
         
 checkpoint grouping:
-    """"Checkpoint for an active grouping either using a given relaxation or BUSCO set"""
+    """Checkpoint for an active grouping either using a given relaxation or BUSCO set"""
     input:
         "{results}/done/{type}.group.done" if config['group.relaxation'] else "{results}/done/{type}.change_grouping.done"
     output:
@@ -213,3 +213,15 @@ rule get_group_ids:
         "{results}/{type}_db/homology_selection.txt"
     script:
         "../scripts/homology_selection.sh"
+
+checkpoint construction:
+    """Checkpoint for all pangenome construction."""
+    input:
+        lambda wildcards: construction_done(wildcards.type)
+    output:
+        touch(f"{config['results']}/done/{{type}}.construction.done")
+    params:
+        input_path = config['construction'],
+        output_path = config['results']
+    shell:
+        "mv {params.input_path} {params.output_path}"

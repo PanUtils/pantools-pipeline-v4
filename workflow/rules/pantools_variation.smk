@@ -31,15 +31,15 @@ rule add_pavs:
     """Add presence-absence variation (PAV) to the pangenome."""
     input:
         "{results}/done/validate.pavs.done",
-        "{results}/done/pangenome.add_annotations.done",
+        "{results}/done/{type}.add_annotations.done",
         pavs = config['pav'],
     output:
-        done = touch("{results}/done/pangenome.add_pavs.done")
+        done = touch("{results}/done/{type}.add_pavs.done")
     params:
-        database = "{results}/pangenome_db",
+        database = "{results}/{type}_db",
         opts = config['add_pavs.opts'],
     benchmark:
-        "{results}/benchmarks/pangenome.add_pavs.txt"
+        "{results}/benchmarks/{type}.add_pavs.txt"
     conda:
         "../envs/pantools.yaml"
     threads:
@@ -50,16 +50,14 @@ rule add_pavs:
 rule variation_overview:
     """"Write an overview of all accessions (PAV and VCF) added to the pangenome."""
     input:
-        "{results}/done/pangenome.add_annotations.done",
-        "{results}/done/pangenome.add_variants.done" if config['vcf'] else [],
-        "{results}/done/pangenome.add_pavs.done" if config['pav'] else [],
+        "{results}/done/{type}.construction.done"
     output:
-        done = touch("{results}/done/pangenome.variation_overview.done")
+        done = touch("{results}/done/{type}.variation_overview.done")
     params:
-        database = "{results}/pangenome_db",
+        database = "{results}/{type}_db",
         opts = config['variation_overview.opts'],
     benchmark:
-        "{results}/benchmarks/pangenome.variation_overview.txt"
+        "{results}/benchmarks/{type}.variation_overview.txt"
     conda:
         "../envs/pantools.yaml"
     threads:

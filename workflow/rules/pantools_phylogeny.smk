@@ -13,11 +13,7 @@ mlsa
 rule core_phylogeny:
     """Create a SNP tree from single-copy genes."""
     input:
-        lambda wildcards: msa_done(wildcards.type),
-        "{results}/done/{type}.grouping.done",
-        "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
-        "{results}/done/{type}.add_variants.done" if config['vcf'] else [],
-        "{results}/done/{type}.add_pavs.done" if config['pav'] else [],
+        "{results}/done/{type}.msa.done",
         homology = "{results}/{type}_db/homology_selection.txt" if config['gene_selection'] \
             else "{results}/{type}_db/gene_classification/single_copy_orthologs.csv"
     output:
@@ -46,10 +42,8 @@ rule core_phylogeny:
 rule consensus_tree:
     """Create a consensus tree by combining gene trees from homology groups using ASTRAL-Pro."""
     input:
-        lambda wildcards: msa_done(wildcards.type),
-        "{results}/done/pangenome.gene_classification.done",
-        "{results}/done/{type}.add_variants.done" if config['vcf'] else [],
-        "{results}/done/{type}.add_pavs.done" if config['pav'] else [],
+        "{results}/done/{type}.msa.done",
+        "{results}/done/{type}.gene_classification.done",
         "{results}/{type}_db/homology_selection.txt" if config['gene_selection'] else []
     output:
         done = touch("{results}/done/{type}.consensus_tree.done"),
@@ -69,8 +63,7 @@ rule consensus_tree:
 rule ani:
     """Calculate Average Nucleotide Identity (ANI) scores between genomes."""
     input:
-        "{results}/done/pangenome.build_pangenome.done",
-        "{results}/done/pangenome.add_phenotypes.done" if config['phenotypes'] else [],
+        "{results}/done/pangenome.construction.done"
     output:
         done = touch("{results}/done/pangenome.ani.done"),
     params:
@@ -135,8 +128,7 @@ rule mlsa_concatenate:
 rule mlsa:
     """Step 3/3 of mlsa. Run IQ-tree on the concatenated sequences."""
     input:
-        "{results}/done/pangenome.mlsa_concatenate.done",
-        "{results}/done/pangenome.add_phenotypes.done" if config['phenotypes'] else [],
+        "{results}/done/pangenome.mlsa_concatenate.done"
     output:
         done = touch("{results}/done/pangenome.mlsa.done"),
     params:
