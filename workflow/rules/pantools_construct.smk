@@ -224,4 +224,4 @@ checkpoint construction:
         input_path = config['construction'],
         output_path = config['results']
     shell:
-        "mv {params.input_path} {params.output_path}"
+        "mv {params.input_path}/* {params.output_path}"
