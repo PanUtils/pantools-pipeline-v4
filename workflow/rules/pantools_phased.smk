@@ -23,7 +23,7 @@ rule all_phasing:
 rule add_phasing:
     """Add phasing information to the pangenome."""
     input:
-        "{results}/done/pangenome.build_pangenome.done",
+        "{results}/done/pangenome.construction.done",
         phasing = config['phasing']
     output:
         done = touch("{results}/done/pangenome.add_phasing.done"),
@@ -42,7 +42,7 @@ rule add_phasing:
 rule add_repeats:
     """Add repeats to the pangenome."""
     input:
-        "{results}/done/pangenome.build_pangenome.done",
+        "{results}/done/pangenome.construction.done",
         repeats = config['repeats']
     output:
         touch("{results}/done/pangenome.add_repeats.done")
@@ -79,7 +79,7 @@ rule repeat_overview:
 rule calculate_synteny:
     """Calculate synteny information using MCSCanX."""
     input:
-        "{results}/done/pangenome.grouping.done",
+        "{results}/done/pangenome.construction.done"
     output:
         touch("{results}/done/pangenome.calculate_synteny.done"),
         synteny = "{results}/pangenome_db/synteny/mcscanx.collinearity"
@@ -98,7 +98,7 @@ rule calculate_synteny:
 rule add_synteny:
     """Add synteny information to the pangenome."""
     input:
-        "{results}/done/pangenome.grouping.done",
+        "{results}/done/pangenome.construction.done",
         synteny = config['syneny'] if config['synteny'] else "{results}/pangenome_db/synteny/mcscanx.collinearity"
     output:
         touch("{results}/done/pangenome.add_synteny.done")
@@ -155,8 +155,7 @@ rule blast:
 rule calculate_dn_ds:
     """Run BLAST."""
     input:
-        "{results}/done/{type}.msa.done",
-        "{results}/done/{type}.grouping.done"
+        "{results}/done/{type}.msa.done"
     output:
         touch("{results}/done/{type}.calculate_dn_ds.done")
     params:
