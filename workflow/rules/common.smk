@@ -31,7 +31,7 @@ def msa_done(db_type):
     else:
         return "{results}/done/{type}.msa_protein.done"
 
-def construction_functions(db_type):
+def construction_done(db_type):
     done_files = []
     dir = config['construction']
     if db_type == 'pangenome':
