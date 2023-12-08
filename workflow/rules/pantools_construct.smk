@@ -214,7 +214,7 @@ checkpoint construction:
     input:
         lambda wildcards: construction_done(wildcards.type)
     output:
-        touch(f"{config['results']}/done/{{type}}.construction.done")
+        touch("{results}/done/{type}.construction.done")
     params:
         database = f"{config['construction']}/{{type}}_db",
         results = config['results']

@@ -33,15 +33,14 @@ def msa_done(db_type):
 
 def construction_done(db_type):
     done_files = []
-    dir = config['construction']
     if db_type == 'pangenome':
-        done_files.append(f"{dir}/done/{{type}}.build_pangenome.done")
-        done_files.append(f"{dir}/done/{{type}}.add_annotations.done")
-        if config['vcf']: done_files.append(f"{dir}/done/{{type}}.add_variants.done")
-        if config['phasing']: done_files.append(f"{dir}/done/{{type}}.add_phasing.done")
+        done_files.append("{results}/done/{type}.build_pangenome.done")
+        done_files.append("{results}/done/{type}.add_annotations.done")
+        if config['vcf']: done_files.append("{results}/done/{type}.add_variants.done")
+        if config['phasing']: done_files.append("{results}/done/{type}.add_phasing.done")
     else:
-        done_files.append(f"{dir}/done/{{type}}.build_panproteome.done")
-    if config['functions']: done_files.append(f"{dir}/done/{{type}}.add_functions.done")
-    if config['pav']: done_files.append(f"{dir}/done/{{type}}.add_pavs.done")
-    if config['phenotypes']: done_files.append(f"{dir}/done/{{type}}.add_phenotypes.done")
+        done_files.append("{results}/done/{type}.build_panproteome.done")
+    if config['functions']: done_files.append("{results}/done/{type}.add_functions.done")
+    if config['pav']: done_files.append("{results}/done/{type}.add_pavs.done")
+    if config['phenotypes']: done_files.append("{results}/done/{type}.add_phenotypes.done")
     return done_files
