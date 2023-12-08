@@ -217,6 +217,6 @@ rule get_group_ids:
     output:
         "{results}/{type}_db/homology_selection.txt"
     params:
-        all_groups = f"{config['construction']}/{{type}}_db/pantools_homology_groups.txt",
+        all_groups = "{results}/{type}_db/pantools_homology_groups.txt",
     script:
         "../scripts/homology_selection.sh"
