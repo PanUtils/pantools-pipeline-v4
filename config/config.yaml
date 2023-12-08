@@ -27,7 +27,7 @@ proteomes: resources/test_data/metadata/proteome_locations.txt
 functions: resources/test_data/metadata/function_locations.txt
 vcf: resources/test_data/metadata/variant_locations.txt
 pav: resources/test_data/metadata/pav_locations.txt
-phenotypes: resources/test_data/metadata/phenotypes_chrI.csv
+phenotypes: resoyurces/test_data/metadata/phenotypes_chrI.csv
 phasing: resources/test_data/metadata/phasing_information.txt
 repeats:
 synteny:

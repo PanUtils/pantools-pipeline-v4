@@ -20,10 +20,9 @@ rule add_annotations:
         "{results}/done/pangenome.build_pangenome.done",
         annotations = config['annotations'],
     output:
-        touch("{results}/done/pangenome.add_annotations.done"),
-        directory("{results}/pangenome_db/proteins"),
+        touch("{results}/done/pangenome.add_annotations.done")
     params:
-        database = "{results}/pangenome_db",
+        database = f"{config['construction']}/pangenome_db",
         opts = config['add_annotations.opts'],
     benchmark:
         "{results}/benchmarks/pangenome.add_annotations.txt"
@@ -39,11 +38,11 @@ rule add_functions:
     input:
         "{results}/done/validate.functions.done",
         lambda wildcards: proteins_done(wildcards.type),
-        functions = config['functions'],
+        functions = config['functions']
     output:
         touch("{results}/done/{type}.add_functions.done")
     params:
-        database = "{results}/{type}_db",
+        database = f"{config['construction']}/{{type}}_db",
         opts = config['add_functions.opts'],
     benchmark:
         "{results}/benchmarks/{type}.add_functions.txt"
@@ -58,11 +57,11 @@ rule add_phenotypes:
     """Add phenotype data to the pangenome."""
     input:
         "{results}/done/{type}.build_{type}.done",
-        phenotypes = config['phenotypes'],
+        phenotypes = config['phenotypes']
     output:
         touch("{results}/done/{type}.add_phenotypes.done"),
     params:
-        database = "{results}/{type}_db",
+        database = f"{config['construction']}/{{type}}_db",
         opts = config['add_phenotypes.opts'],
     benchmark:
         "{results}/benchmarks/{type}.add_phenotypes.txt"
@@ -81,7 +80,7 @@ rule build_pangenome:
     output:
         touch("{results}/done/pangenome.build_pangenome.done"),
     params:
-        database = "{results}/pangenome_db",
+        database = f"{config['construction']}/pangenome_db",
         opts = config['build_pangenome.opts'],
     benchmark:
         "{results}/benchmarks/pangenome.build_pangenome.txt"
@@ -100,7 +99,7 @@ rule build_panproteome:
     output:
         touch("{results}/done/panproteome.build_panproteome.done"),
     params:
-        database = "{results}/panproteome_db",
+        database = f"{config['construction']}/panproteome_db",
         opts = config['build_panproteome.opts'],
     benchmark:
         "{results}/benchmarks/panproteome.build_panproteome.txt"
@@ -116,12 +115,9 @@ rule busco_protein:
     input:
         lambda wildcards: proteins_done(wildcards.type)
     output:
-        touch("{results}/done/{type}.busco_protein.{busco}.done"),
-        "{results}/{type}_db/busco/{busco}/protein/busco_overview.csv",
-        "{results}/{type}_db/busco/{busco}/protein/hmm_overview.txt",
-        "{results}/{type}_db/busco/{busco}/protein/busco_scores.txt",
+        touch("{results}/done/{type}.busco_protein.{busco}.done")
     params:
-        database = "{results}/{type}_db",
+        database = f"{config['construction']}/{{type}}_db",
         opts = config['busco_protein.opts'],
     benchmark:
         "{results}/benchmarks/{type}.busco_protein.{busco}.txt"
@@ -135,11 +131,11 @@ rule busco_protein:
 rule change_grouping:
     """"Change the active grouping based on the result of optimal_grouping."""
     input:
-        "{results}/{type}_db/optimal_grouping/grouping_overview.csv"
+        "{results}/done/{type}.optimal_grouping.done"
     output:
         touch("{results}/done/{type}.change_grouping.done")
     params:
-        database = "{results}/{type}_db",
+        database = f"{config['construction']}/{{type}}_db",
         opts = config['add_functions.opts'],
     benchmark:
         "{results}/benchmarks/{type}.change_grouping.txt"
@@ -149,7 +145,7 @@ rule change_grouping:
         workflow.cores * 0.6
     shell:
         """
-        relaxation=$(sort -k14 -n {input} | head -1 -c 2 | tail -c 1)
+        relaxation=$(sort -k14 -n {params.database}/optimal_grouping/grouping_overview.csv | head -1 -c 2 | tail -c 1)
         {pantools} change_grouping -v=$relaxation {params.opts} {params.database}
         """
         
@@ -158,10 +154,9 @@ rule group:
     input:
         lambda wildcards: proteins_done(wildcards.type)
     output:
-        touch("{results}/done/{type}.group.done"),
-        "{results}/{type}_db/pantools_homology_groups.txt",
+        touch("{results}/done/{type}.group.done")
     params:
-        database = "{results}/{type}_db",
+        database = f"{config['construction']}/{{type}}_db",
         relaxation = config["group.relaxation"],
         opts = config['group.opts'],
     benchmark:
@@ -178,12 +173,9 @@ rule optimal_grouping:
     input:
         "{{results}}/done/{{type}}.busco_protein.{busco}.done".format(busco=config['busco_protein.odb10'])
     output:
-        touch("{results}/done/{type}.optimal_grouping.done"),
-        "{results}/{type}_db/optimal_grouping/grouping_overview.csv",
-        "{results}/{type}_db/optimal_grouping/counts_per_busco.log",
-        "{results}/{type}_db/optimal_grouping/optimal_grouping.png"
+        touch("{results}/done/{type}.optimal_grouping.done")
     params:
-        database = "{results}/{type}_db",
+        database = f"{config['construction']}/{{type}}_db",
         busco = config["busco_protein.odb10"],
         opts = config['optimal_grouping.opts'],
     benchmark:
@@ -201,16 +193,19 @@ rule optimal_grouping:
 checkpoint grouping:
     """Checkpoint for an active grouping either using a given relaxation or BUSCO set"""
     input:
-        "{results}/done/{type}.group.done" if config['group.relaxation'] else "{results}/done/{type}.change_grouping.done"
+        "{results}/done/{type}.group.done" if config['group.relaxation'] else \
+            "{results}/done/{type}.change_grouping.done"
     output:
         touch("{results}/done/{type}.grouping.done")
 
 rule get_group_ids:
     input:
-        all_groups = "{results}/{type}_db/pantools_homology_groups.txt",
+        "{results}/done/{type}.grouping.done",
         gene_selection = config["gene_selection"]
     output:
         "{results}/{type}_db/homology_selection.txt"
+    params:
+        all_groups = f"{config['construction']}/{{type}}_db/pantools_homology_groups.txt",
     script:
         "../scripts/homology_selection.sh"
 
@@ -221,7 +216,7 @@ checkpoint construction:
     output:
         touch(f"{config['results']}/done/{{type}}.construction.done")
     params:
-        input_path = config['construction'],
-        output_path = config['results']
+        database = f"{config['construction']}/{{type}}_db",
+        results = config['results']
     shell:
-        "mv {params.input_path}/* {params.output_path}"
+        "mv {params.database} {params.results}"
