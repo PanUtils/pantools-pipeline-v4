@@ -43,4 +43,5 @@ def construction_done(db_type):
     if config['functions']: done_files.append("{results}/done/{type}.add_functions.done")
     if config['pav']: done_files.append("{results}/done/{type}.add_pavs.done")
     if config['phenotypes']: done_files.append("{results}/done/{type}.add_phenotypes.done")
+    done_files.append("{results}/done/{type}.grouping.done")
     return done_files
