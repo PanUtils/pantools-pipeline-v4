@@ -93,4 +93,4 @@ checkpoint msa:
     input:
         lambda wildcards: msa_done(wildcards.type)
     output:
-        "{results}/done/{type}.msa.done"
+        done = touch("{results}/done/{type}.msa.done")
