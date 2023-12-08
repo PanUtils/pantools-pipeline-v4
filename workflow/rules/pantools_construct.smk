@@ -198,17 +198,6 @@ checkpoint grouping:
     output:
         touch("{results}/done/{type}.grouping.done")
 
-rule get_group_ids:
-    input:
-        "{results}/done/{type}.grouping.done",
-        gene_selection = config["gene_selection"]
-    output:
-        "{results}/{type}_db/homology_selection.txt"
-    params:
-        all_groups = f"{config['construction']}/{{type}}_db/pantools_homology_groups.txt",
-    script:
-        "../scripts/homology_selection.sh"
-
 checkpoint construction:
     """Checkpoint for all pangenome construction."""
     input:
@@ -219,4 +208,15 @@ checkpoint construction:
         database = f"{config['construction']}/{{type}}_db",
         results = config['results']
     shell:
-        "mv {params.database} {params.results}"
+        "mv -f {params.database} {params.results}"
+
+rule get_group_ids:
+    input:
+        "{results}/done/{type}.construction.done",
+        gene_selection = config["gene_selection"]
+    output:
+        "{results}/{type}_db/homology_selection.txt"
+    params:
+        all_groups = f"{config['construction']}/{{type}}_db/pantools_homology_groups.txt",
+    script:
+        "../scripts/homology_selection.sh"
