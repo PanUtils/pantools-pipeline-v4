@@ -16,7 +16,7 @@ rule add_variants:
     output:
         done = touch("{results}/done/pangenome.add_variants.done")
     params:
-        database = "{results}/pangenome_db",
+        database = f"{config['construction']}/pangenome_db",
         opts = config['add_variants.opts'],
     benchmark:
         "{results}/benchmarks/pangenome.add_variants.txt"
@@ -36,7 +36,7 @@ rule add_pavs:
     output:
         done = touch("{results}/done/{type}.add_pavs.done")
     params:
-        database = "{results}/{type}_db",
+        database = f"{config['construction']}/{{type}}_db",
         opts = config['add_pavs.opts'],
     benchmark:
         "{results}/benchmarks/{type}.add_pavs.txt"

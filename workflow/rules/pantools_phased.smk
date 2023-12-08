@@ -28,7 +28,7 @@ rule add_phasing:
     output:
         done = touch("{results}/done/pangenome.add_phasing.done"),
     params:
-        database = "{results}/pangenome_db",
+        database = f"{config['construction']}/pangenome_db",
         opts = config['add_phasing.opts'],
     benchmark:
         "{results}/benchmarks/pantools.add_phasing.txt"
@@ -47,8 +47,8 @@ rule add_repeats:
     output:
         touch("{results}/done/pangenome.add_repeats.done")
     params:
-        database = "{results}/pangenome_db",
-        opts = config['add_repeats.opts'],
+        database = f"{config['construction']}/pangenome_db",
+        opts = config['add_repeats.opts']
     benchmark:
         "{results}/benchmarks/pangenome.add_repeats.txt"
     conda:
@@ -84,7 +84,7 @@ rule calculate_synteny:
         touch("{results}/done/pangenome.calculate_synteny.done"),
         synteny = "{results}/pangenome_db/synteny/mcscanx.collinearity"
     params:
-        database = "{results}/pangenome_db",
+        database = f"{config['construction']}/pangenome_db",
         opts = config['calculate_synteny.opts'],
     benchmark:
         "{results}/benchmarks/pangenome.calculate_synteny.txt"
@@ -98,7 +98,7 @@ rule calculate_synteny:
 rule add_synteny:
     """Add synteny information to the pangenome."""
     input:
-        "{results}/done/pangenome.construction.done",
+        database = f"{config['construction']}/pangenome_db",
         synteny = config['syneny'] if config['synteny'] else "{results}/pangenome_db/synteny/mcscanx.collinearity"
     output:
         touch("{results}/done/pangenome.add_synteny.done")
