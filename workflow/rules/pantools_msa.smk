@@ -64,7 +64,7 @@ rule msa_proteins:
 rule msa_nucleotides:
     """Create multiple sequence alignments on nucleotide sequences."""
     input:
-        "{results}/done/{type}.construction.done",
+        "{results}/done/{type}.msa_protein.done",
         "{results}/{type}_db/homology_selection.txt" if config['gene_selection'] else []
     output:
         done = touch("{results}/done/{type}.msa_nucleotide.done")
