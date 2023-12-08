@@ -23,7 +23,7 @@ rule all_phasing:
 rule add_phasing:
     """Add phasing information to the pangenome."""
     input:
-        "{results}/done/pangenome.construction.done",
+        "{results}/done/pangenome.build_pangenome.done",
         phasing = config['phasing']
     output:
         done = touch("{results}/done/pangenome.add_phasing.done"),
