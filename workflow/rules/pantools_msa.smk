@@ -8,11 +8,7 @@ msa
 rule msa_variants:
     """Create multiple sequence alignments including variants."""
     input:
-        "{results}/done/{type}.grouping.done",
-        "{results}/done/{type}.add_variants.done",
-        "{results}/done/{type}.add_functions.done" if config['functions'] else [],
-        "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
-        "{results}/done/{type}.add_pavs.done" if config['pav'] else [],
+        "{results}/done/{type}.construction.done",
         "{results}/{type}_db/homology_selection.txt" if config['gene_selection'] else []
     output:
         done = touch("{results}/done/{type}.msa_variants.done")
@@ -40,9 +36,7 @@ rule msa_variants:
 rule msa_proteins:
     """Create multiple sequence alignments on protein sequences."""
     input:
-        "{results}/done/{type}.grouping.done",
-        "{results}/done/{type}.add_functions.done" if config['functions'] else [],
-        "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
+        "{results}/done/{type}.construction.done",
         "{results}/{type}_db/homology_selection.txt" if config['gene_selection'] else []
     output:
         done = touch("{results}/done/{type}.msa_protein.done")
@@ -71,9 +65,6 @@ rule msa_nucleotides:
     """Create multiple sequence alignments on nucleotide sequences."""
     input:
         "{results}/done/{type}.msa_protein.done",
-        "{results}/done/{type}.grouping.done",
-        "{results}/done/{type}.add_functions.done" if config['functions'] else [],
-        "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
         "{results}/{type}_db/homology_selection.txt" if config['gene_selection'] else []
     output:
         done = touch("{results}/done/{type}.msa_nucleotide.done")
@@ -97,3 +88,9 @@ rule msa_nucleotides:
             {params.homology} \
             {params.database}
         """
+
+checkpoint msa:
+    input:
+        lambda wildcards: msa_done(wildcards.type)
+    output:
+        done = touch("{results}/done/{type}.msa.done")

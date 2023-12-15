@@ -15,8 +15,7 @@ pangenome_structure
 rule functional_classification:
     """Classify functional annotations as core, accessory or unique."""
     input:
-        "{results}/done/{type}.add_functions.done",
-        "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
+        "{results}/done/{type}.construction.done"
     output:
         done = touch("{results}/done/{type}.functional_classification.done"),
         file1 = "{results}/{type}_db/function/functional_classification/functional_classification_overview.txt",
@@ -38,7 +37,7 @@ rule functional_classification:
 rule function_overview:
     """Create an overview table for each functional annotation type in the pangenome."""
     input:
-        "{results}/done/{type}.add_functions.done"
+        "{results}/done/{type}.construction.done"
     output:
         done = touch("{results}/done/{type}.function_overview.done"),
         file1 = "{results}/{type}_db/function/functions_per_group_and_mrna.csv",
@@ -58,9 +57,7 @@ rule function_overview:
 rule gene_classification:
     """Classify the gene repertoire as core, accessory or unique."""
     input:
-        "{results}/done/{type}.grouping.done",
-        "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
-        "{results}/done/{type}.add_pavs.done" if config['pav'] else [],
+        "{results}/done/{type}.construction.done"
     output:
         touch("{results}/done/{type}.gene_classification.done"),
         "{results}/{type}_db/gene_classification/gene_classification_overview.txt",
@@ -100,7 +97,7 @@ rule find_dispensable_homology_groups:
 rule go_enrichment:
     """Identify over- or underrepresented GO terms in a set of genes."""
     input:
-        "{results}/done/{type}.add_functions.done",
+        "{results}/done/{type}.construction.done",
         groups = "{results}/{type}_db/gene_classification/dispensable_groups.csv",
     output:
         touch("{results}/done/{type}.go_enrichment.done")
@@ -119,7 +116,7 @@ rule go_enrichment:
 rule grouping_overview:
     """Create an overview table for every homology grouping in the pangenome."""
     input:
-        "{results}/done/{type}.grouping.done"
+        "{results}/done/{type}.construction.done"
     output:
         touch("{results}/done/{type}.grouping_overview.done"),
         "{results}/{type}_db/group/grouping_overview.txt",
@@ -138,7 +135,7 @@ rule grouping_overview:
 rule kmer_classification:
     """Calculate the number of core, accessory, unique k-mer sequences."""
     input:
-        "{results}/done/pangenome.build_pangenome.done"
+        "{results}/done/pangenome.construction.done"
     output:
         touch("{results}/done/pangenome.kmer_classification.done"),
         "{results}/pangenome_db/kmer_classification/genome_kmer_distance.tree",
@@ -161,7 +158,7 @@ rule kmer_classification:
 rule metrics:
     """Generates relevant metrics of the pangenome."""
     input:
-        "{results}/done/{type}.build_{type}.done"
+        "{results}/done/{type}.construction.done"
     output:
         touch("{results}/done/{type}.metrics.done"),
         "{results}/{type}_db/metrics/metrics.txt",
@@ -181,8 +178,7 @@ rule metrics:
 rule pangenome_structure:
     """Determine the openness of the pangenome based on homology groups."""
     input:
-        "{results}/done/{type}.grouping.done",
-        "{results}/done/{type}.add_pavs.done" if config['pav'] else [],
+        "{results}/done/{type}.construction.done"
     output:
         touch("{results}/done/{type}.pangenome_structure.done"),
         "{results}/{type}_db/pangenome_size/gene/pangenome_size.txt",
@@ -204,7 +200,7 @@ rule pangenome_structure:
 rule kmer_structure:
     """Determine the openness of the pangenome based on k-mer sequences."""
     input:
-        "{results}/done/pangenome.grouping.done",
+        "{results}/done/pangenome.construction.done"
     output:
         touch("{results}/done/pangenome.pangenome_structure_kmer.done"),
     params:

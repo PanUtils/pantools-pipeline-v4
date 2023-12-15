@@ -13,7 +13,7 @@ rule show_go:
     higher in the hierarchy, and connected mRNA nodes.
     """
     input:
-        "{results}/done/{type}.add_functions.done"
+        "{results}/done/{type}.construction.done"
     output:
         done = touch("{results}/done/{type}.show_go.done")
     params:
@@ -31,7 +31,7 @@ rule show_go:
 rule compare_go:
     """For two given GO terms, move up in the GO hierarchy to see if they are related."""
     input:
-        "{results}/done/{type}.add_functions.done"
+        "{results}/done/{type}.construction.done"
     output:
         done = touch("{results}/done/{type}.compare_go.done")
     params:
@@ -49,9 +49,7 @@ rule compare_go:
 rule group_info:
     """Report all available information of one or multiple homology groups."""
     input:
-        "{results}/done/{type}.grouping.done",
-        "{results}/done/{type}.add_phenotypes.done" if config['phenotypes'] else [],
-        "{results}/done/{type}.add_functions.done" if config['functions'] else [],
+        "{results}/done/{type}.construction.done"
     output:
         done = touch("{results}/done/{type}.group_info.done"),
     params:

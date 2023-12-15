@@ -8,9 +8,9 @@ map
 rule map:
     """Map single or paired-end short reads to one or multiple genomes in the pangenome."""
     input:
-        "{results}/done/pangenome.build_pangenome.done",
+        "{results}/done/pangenome.construction.done",
         sr1 = config['short_read_1'],
-        sr2 = config['short_read_2'],
+        sr2 = config['short_read_2']
     output:
         touch("{results}/done/pangenome.map.done"),
     params:

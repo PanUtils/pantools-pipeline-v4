@@ -17,8 +17,10 @@ nice:
 
 # custom scratch directory (default is system default)
 scratch:
-# path for pantools output (RAM or SSD is reccomended)
+# path for pantools output
 results: results/test
+# path for construction output (RAM or SSD is recommended)
+construction: results/test
 
 ### PARAMETERS ###
 genomes: resources/test_data/metadata/genome_locations.txt
@@ -29,8 +31,8 @@ vcf: resources/test_data/metadata/variant_locations.txt
 pav: resources/test_data/metadata/pav_locations.txt
 phenotypes: resources/test_data/metadata/phenotypes_chrI.csv
 phasing: resources/test_data/metadata/phasing_information.txt
-repeats:
-synteny:
+repeats: ""
+synteny: ""
 blast: resources/test_data/proteomes/BY_chrI.pep.fa
 short_read_1: resources/test_data/reads/SRR800844_chrI_1.fq.gz
 short_read_2: resources/test_data/reads/SRR800844_chrI_2.fq.gz
