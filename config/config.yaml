@@ -8,6 +8,8 @@ Xms: 20
 Xmx: 40
 # path to PanTools jar file; only for development!!!
 jar:
+# prefix to profiling file; only for development!!!
+jfr_prefix:
 # nice priority
 nice:
 
