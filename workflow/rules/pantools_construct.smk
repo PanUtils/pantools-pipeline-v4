@@ -208,7 +208,12 @@ checkpoint construction:
         database = f"{config['construction']}/{{type}}_db",
         results = config['results']
     shell:
-        "mv -f {params.database} {params.results}"
+        """
+        if ! [[ "$(dirname {params.database})" -ef {params.results} ]]
+        then
+            mv {params.database} {params.results}
+        fi
+        """
 
 rule get_group_ids:
     input:
