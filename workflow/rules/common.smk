@@ -3,12 +3,19 @@ Contains setup logic and common functions for other Snakemake rules.
 """
 
 import tempfile
+from datetime import datetime
 
 # Set pantools command with Java heap space.
+jvm_options = f"-Xms{config['Xms']}g -Xmx{config['Xmx']}g"
+
+if config['jfr_prefix']:
+    prefix = f"{config['jfr_prefix']}.{datetime.now().strftime('%y%m%d%H%M%S%f')}"
+    jvm_options = f"-XX:StartFlightRecording=filename={prefix}.jfr,disk=true {jvm_options}"
+
 if config['jar']:
-    pantools = "java -Xms{}g -Xmx{}g -jar {}".format(config['Xms'], config['Xmx'], config['jar'])
+    pantools = f"java {jvm_options} -jar {config['jar']}"
 else:
-    pantools = "pantools -Xms{}g -Xmx{}g".format(config['Xms'], config['Xmx'])
+    pantools = f"pantools {jvm_options}"
 
 if config['nice']: pantools = f"nice -n {config['nice']} {pantools}"
 
