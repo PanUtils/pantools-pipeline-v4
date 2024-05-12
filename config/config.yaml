@@ -1,7 +1,6 @@
 # Config for PanTools pipeline on test dataset
 
 ### JAVA SETTINGS ###
-
 # Java initial heap size (g)
 Xms: 20
 # Java maximum heap size (g)
@@ -14,13 +13,12 @@ jfr_prefix:
 nice:
 
 ### OUTPUT ###
-
-# custom scratch directory (default is system default)
-scratch:
 # path for pantools output
 results: results/test
 # path for construction output (RAM or SSD is recommended)
 construction: results/test
+# custom scratch directory (default is system default)
+scratch:
 
 ### PARAMETERS ###
 genomes: resources/test_data/metadata/genome_locations.txt
@@ -31,14 +29,18 @@ vcf: resources/test_data/metadata/variant_locations.txt
 pav: resources/test_data/metadata/pav_locations.txt
 phenotypes: resources/test_data/metadata/phenotypes_chrI.csv
 phasing: resources/test_data/metadata/phasing_information.txt
-repeats: ""
-synteny: ""
-blast: resources/test_data/proteomes/BY_chrI.pep.fa
+repeats:
+synteny:
+blast:
 short_read_1: resources/test_data/reads/SRR800844_chrI_1.fq.gz
 short_read_2: resources/test_data/reads/SRR800844_chrI_2.fq.gz
-gene_selection: ""
+gene_selection:
 
 ### OPTIONAL ARGUMENTS ###
+group.relaxation: 8 # will be calculated using BUSCO if empty
+busco_protein.odb10: "" # required if relaxation is not set
+core_phylogeny.mode: "ML" # "ML" or "NJ"
+
 add_annotations.opts: "--connect"
 add_antismash.opts: ""
 add_functions.opts: ""
@@ -54,13 +56,11 @@ blast.opts: ""
 build_pangenome.opts: "--kmer-size=13"
 build_panproteome.opts: ""
 busco_protein.opts: ""
-busco_protein.odb10: "" # required if relaxation is not set
 calculate_dn_ds.opts: ""
 calculate_synteny.opts: "--run"
 change_grouping.opts: ""
 compare_go.opts: ""
 consensus_tree.opts: "-v --pavs"
-core_phylogeny.mode: "ML"
 core_phylogeny.opts: "-p=Name -v --pavs"
 core_unique_thresholds.opts: ""
 create_tree_template.opts: ""
@@ -75,7 +75,6 @@ gene_classification.opts: "--mlsa -p=Name" # output from --mlsa is used for mlsa
 gene_retention.opts: ""
 genome_alignment.opts: ""
 go_enrichment.opts: ""
-group.relaxation: 8 # will calculate using BUSCO if empty
 group.opts: ""
 group_info.opts: ""
 grouping_overview.opts: ""
