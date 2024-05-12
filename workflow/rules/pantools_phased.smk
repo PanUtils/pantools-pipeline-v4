@@ -10,16 +10,6 @@ add_synteny
 synteny_statistics
 """
 
-rule all_phasing:
-    input:
-        f"{config['results']}/done/pangenome.add_phasing.done",
-        #f"{config['results']}/done/pangenome.repeat_overview.done",
-        f"{config['results']}/done/pangenome.synteny_overview.done",
-        f"{config['results']}/done/pangenome.blast.done",
-        #f"{config['results']}/done/pangenome.calculate_dn_ds.done",
-        f"{config['results']}/done/pangenome.gene_retention.done",
-        f"{config['results']}/done/pangenome.sequence_visualization.done"
-
 rule add_phasing:
     """Add phasing information to the pangenome."""
     input:
