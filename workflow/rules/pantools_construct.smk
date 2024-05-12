@@ -126,7 +126,7 @@ rule busco_protein:
     threads:
         workflow.cores * 0.9
     shell:
-        "{pantools} busco_protein -t={threads} {params.opts} --busco10={wildcards.busco} {params.database}"
+        "{pantools} busco_protein -t={threads} {params.opts} --obd10={wildcards.busco} {params.database}"
 
 rule change_grouping:
     """"Change the active grouping based on the result of optimal_grouping."""
