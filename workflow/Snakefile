@@ -4,7 +4,7 @@ This pipeline runs all core functionalities of PanTools.
 Requires Java and Mamba.
 To execute, specify a configuration file for the dataset, e.g:
 
-snakemake --cores <cores> --configfiles <config.yaml>
+snakemake --cores <cores> --configfile <config.yaml>
 """
 
 configfile: 'config/config.yaml'
@@ -70,3 +70,12 @@ rule all_variants:
         "{}/done/pangenome.pangenome_structure.done".format(config['results']),
         "{}/done/pangenome.pangenome_structure_kmer.done".format(config['results']),
         "{}/done/pangenome.variation_overview.done".format(config['results'])
+
+
+
+rule panva:
+    """""Run all PanTools functions necessary to create a PanVa instance."""
+    input:
+        "{}/done/pangenome.msa.done".format(config['results']),
+        "{}/done/pangenome.gene_classification.done".format(config['results']),
+        "{}/done/pangenome.group_info.done".format(config['results'])
