@@ -2,7 +2,7 @@
 General purpose Snakemake pipeline for [PanTools](https://git.wur.nl/bioinformatics/pantools).
 
 This pipeline can be used to run PanTools code for specific use cases and datasets.
-This pipeline uses PanTools version 4.3.1. This pipeline is used for reproducibility of 
+The pipeline uses PanTools version 4.3.1. This pipeline is used for reproducibility of 
 larger workflows in pangenomic analysis, and datasets provided by PanTools for tutorials and
 reproducibility of experiments often come with their own configuration file.
 More information is available below for setting up configuration for your own data and creating
@@ -75,20 +75,20 @@ is to perform initial pangenome build and analysis steps without the pipeline, a
 reproducible workflow for experimental replication or repeating the process with updated or similar data a custom 
 configuration and workflow can be set up. You can store the commands options used in the initial experiment in your 
 config, or otherwise find them stored in the log files of PanTools.
-Important configuration parameters, and instructions for how to create your own workflow are discussed below. If you 
-want to follow these steps, and keep up to date with the newest versions of PanTools, and this pipeline, we recommend 
-setting up a [fork](
+Important configuration parameters, and instructions for how to create your own workflow rules are discussed below. If 
+you  want to follow these steps, and keep up to date with the newest versions of PanTools, and this pipeline, we 
+recommend setting up a [fork](
 https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) of this 
-repository. Inside of this fork, you can set up you own rules and standard configuration, while still being able to
-pull in new developments if desired.
+repository. Inside of this fork, you can set up you own rules and standard configurationsettings, while still being 
+able to pull in new developments if desired.
 
 ## Configuration
 The configuration file contains four sections, which are further discussed below.
 
 ### Java settings
-Settings for how to run the PanTools java program. The most important settings are the Xmx heap size and nice priority. 
-Larger datasets (pangenomes with many and/or large genomes) will need a higher heap space to not run out of memory, 
-especially for intensive processes such as the initial build step and homology grouping.
+Settings for how to run the PanTools java program. The most important settings are the **Xmx** heap size and **nice**
+priority.  Larger datasets (pangenomes with many and/or large genomes) will need a higher heap space to not run out of 
+memory,  especially for intensive processes such as the initial build step and homology grouping.
 If your process runs out of memory, you need to increase the value for this parameter.
 The [nice](https://ss64.com/bash/nice.html) setting lets you set a priority for the PanTools commands on a server, 
 this is useful if you let large datasets run on a server with other traffic, so it can efficiently use more cores if 
@@ -157,7 +157,7 @@ The core_phylogeny ``--clustering-mode`` option changes the output this command 
 separately from other core_phylogeny options. Make sure not to set any of these options in the list of optional 
 parameters below.
 
-## Custom workflows
+## Custom rules
 You can create a custom workflow by adding a new rule to **workflow/Snakefile**. All rules that run a PanTools command 
 create a ".done" file to signal their successful completion; a workflow can then be created simply by setting a list of 
 done files for all PanTools functions you want to run in your workflow. The pipeline determines the order in which the
