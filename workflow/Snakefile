@@ -18,7 +18,6 @@ include: 'rules/pantools_msa.smk'
 include: 'rules/pantools_explore.smk'
 include: 'rules/pantools_map.smk'
 include: 'rules/pantools_variation.smk'
-include: 'rules/panva.smk'
 include: 'rules/pantools_phased.smk'
 
 rule all_pangenome:
@@ -70,8 +69,6 @@ rule all_variants:
         "{}/done/pangenome.pangenome_structure.done".format(config['results']),
         "{}/done/pangenome.pangenome_structure_kmer.done".format(config['results']),
         "{}/done/pangenome.variation_overview.done".format(config['results'])
-
-
 
 rule panva:
     """""Run all PanTools functions necessary to create a PanVa instance."""
