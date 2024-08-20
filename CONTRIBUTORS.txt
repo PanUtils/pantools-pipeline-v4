@@ -1,0 +1,12 @@
+Original implementation:
+  Robin van Esch <robinbvanesch@gmail.com>
+
+Snakemake workflow:
+  Robin van Esch <robinbvanesch@gmail.com>
+
+Documentation:
+  Robin van Esch <robinbvanesch@gmail.com>
+
+Test data:
+  Robin van Esch <robinbvanesch@gmail.com>
+  Dirk-Jan van Workum
