@@ -10,3 +10,7 @@ Documentation:
 Test data:
   Robin van Esch <robinbvanesch@gmail.com>
   Dirk-Jan van Workum
+
+Patch contributors:
+  Dionne Zaal
+    * Added docker file and instructions
