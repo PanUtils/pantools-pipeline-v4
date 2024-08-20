@@ -47,7 +47,7 @@ snakemake [rule] --use-conda --cores <threads> [--configfile <config>] [--conda-
 **threads**: number of threads to use. \
 **config**: custom configuration file. \
 **prefix**: path to directory containing conda environments for reuse. \
-**function**: name of a pantools function, the pipeline stops if this function is complete. \
+**function**: name of a pantools function, the pipeline stops if this function is complete.
 
 If no config is provided, the pipeline will run on a small yeast test dataset.
 The possible rules are discussed below. The pipeline will run all major PanTools functions 
@@ -139,7 +139,8 @@ arguments at the start of this section, they simply contain a string where you c
 function, and are named after every function (function_name.opts). For instance, if you want to run the 
 gene_classification function with the following settings: \
 ``pantools gene_classification --unique-threshold=5 --core-threshold=95 tomato_DB``, the gene_classification.opts
-parameter would be "--unique-threshold=5 --core-threshold=95".
+parameter would be \
+"--unique-threshold=5 --core-threshold=95".
 
 The parameters that do not match this format are:
 - **group.relaxation**: The value for the ``--relaxation`` option in pantools 
