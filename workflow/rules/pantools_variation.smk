@@ -23,7 +23,7 @@ rule add_variants:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} add_variants -t={threads} {params.opts} {params.database} {input.variants}"
 
@@ -43,7 +43,7 @@ rule add_pavs:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} add_pavs {params.opts} {params.database} {input.pavs}"
 
@@ -61,6 +61,6 @@ rule variation_overview:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} variation_overview {params.opts} {params.database}"

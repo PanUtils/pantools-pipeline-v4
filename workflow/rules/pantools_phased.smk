@@ -25,7 +25,7 @@ rule add_phasing:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} add_phasing {params.opts} {params.database} {input.phasing}"
 
@@ -44,7 +44,7 @@ rule add_repeats:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} add_repeats -f {params.opts} {params.database} {input.repeats}"
 
@@ -62,7 +62,7 @@ rule repeat_overview:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} repeat_overview -f {params.opts} {params.database}"
 
@@ -81,7 +81,7 @@ rule calculate_synteny:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} calculate_synteny -f {params.opts} -t {threads} {params.database}"
 
@@ -100,7 +100,7 @@ rule add_synteny:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} add_synteny -f {params.opts} {params.database} {input.synteny}"
 
@@ -119,7 +119,7 @@ rule synteny_overview:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} synteny_overview -f {params.opts} {params.database} {input.synteny}"
 
@@ -138,7 +138,7 @@ rule blast:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} blast -f {params.opts} {params.database} {input.blast}"
 
@@ -156,7 +156,7 @@ rule calculate_dn_ds:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} calculate_dn_ds -f --threads {threads} {params.opts} {params.database}"
 
@@ -173,7 +173,7 @@ rule gene_retention:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} gene_retention -f {params.opts} --threads {threads} {params.database}"
 
@@ -191,7 +191,7 @@ rule sequence_visualization:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} sequence_visualization -f {params.opts} {params.database}"
 
