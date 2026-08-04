@@ -1,3 +1,4 @@
+"""
 Run PanTools subcommands for classification.
 Contains the following subcommands:
 

@@ -22,7 +22,7 @@ rule msa_variants:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         """
         {pantools} msa \
@@ -49,7 +49,7 @@ rule msa_proteins:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         """
         {pantools} msa \
@@ -77,7 +77,7 @@ rule msa_nucleotides:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         """
         {pantools} msa \
