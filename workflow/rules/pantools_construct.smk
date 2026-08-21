@@ -29,7 +29,7 @@ rule add_annotations:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} add_annotations -f {params.opts} {params.database} {input.annotations}"
                 
@@ -49,7 +49,7 @@ rule add_functions:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} add_functions -f -F=resources/functional_databases {params.opts} {params.database} {input.functions}"
         
@@ -68,7 +68,7 @@ rule add_phenotypes:
     conda:
         "../envs/pantools.yaml",
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} add_phenotypes {params.opts} {params.database} {input.phenotypes}"
 
@@ -87,7 +87,7 @@ rule build_pangenome:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} build_pangenome -f -t={threads} --scratch-directory={temp_dir} {params.opts} {params.database} {input.genomes}"
 
@@ -106,7 +106,7 @@ rule build_panproteome:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} build_panproteome -f {params.opts} {params.database} {input.proteomes}"
 
@@ -124,7 +124,7 @@ rule busco_protein:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} busco_protein -t={threads} {params.opts} --obd10={wildcards.busco} {params.database}"
 
@@ -142,7 +142,7 @@ rule change_grouping:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         """
         relaxation=$(sort -k14 -n {params.database}/optimal_grouping/grouping_overview.csv | head -1 -c 2 | tail -c 1)
@@ -164,7 +164,7 @@ rule group:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} group -f -t={threads} {params.opts} --relaxation={params.relaxation} {params.database}"
 
@@ -183,7 +183,7 @@ rule optimal_grouping:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         """
         {pantools} optimal_grouping -t={threads} {params.opts} {params.database} {params.database}/busco/{params.busco}

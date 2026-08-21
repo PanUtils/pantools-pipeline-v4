@@ -28,7 +28,7 @@ rule core_phylogeny:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         """
         {pantools} core_phylogeny --threads={threads} -m={params.mode} -H={input.homology} {params.opts} {params.database}
@@ -56,7 +56,7 @@ rule consensus_tree:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} consensus_tree --threads={threads} {params.opts} {params.homology} {params.database}"
 
@@ -74,7 +74,7 @@ rule ani:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         """
         {pantools} ani --threads={threads} {params.opts} {params.database}
@@ -96,7 +96,7 @@ rule mlsa_find_genes:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         """
         genes=`grep -Ev ':|^#|^$' {params.suggestions} | sed -z 's/\\n/,/g' | sed -e 's/,*$//g' -e 's/_mRNA//g'`
@@ -118,7 +118,7 @@ rule mlsa_concatenate:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         """
         genes=`grep -Ev ':|^#|^$' {params.suggestions} | sed -z 's/\\n/,/g' | sed -e 's/,*$//g' -e 's/_mRNA//g'`
@@ -139,6 +139,6 @@ rule mlsa:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} mlsa -t={threads} {params.opts} {params.database}"

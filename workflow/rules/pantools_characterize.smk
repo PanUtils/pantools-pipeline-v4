@@ -30,7 +30,7 @@ rule functional_classification:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} functional_classification {params.opts} {params.database}"
 
@@ -50,7 +50,7 @@ rule function_overview:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} function_overview -f {params.opts} {params.database}"
 
@@ -77,7 +77,7 @@ rule gene_classification:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         """
         {pantools} gene_classification -f {params.opts} {params.database}
@@ -109,7 +109,7 @@ rule go_enrichment:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} go_enrichment -f -H={input.groups} {params.opts} {params.database}"
 
@@ -128,7 +128,7 @@ rule grouping_overview:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} grouping_overview {params.opts} {params.database}"
 
@@ -148,7 +148,7 @@ rule kmer_classification:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         """
         {pantools} kmer_classification -f {params.opts} {params.database}
@@ -171,7 +171,7 @@ rule metrics:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} metrics -f {params.opts} {params.database}"
     
@@ -190,7 +190,7 @@ rule pangenome_structure:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         """
         {pantools} pangenome_structure -f --threads={threads} {params.opts} {params.database}
@@ -211,7 +211,7 @@ rule kmer_structure:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         """
         {pantools} pangenome_structure --kmer --threads={threads} {params.opts} {params.database}

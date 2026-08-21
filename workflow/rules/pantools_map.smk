@@ -21,6 +21,6 @@ rule map:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.9
+        workflow.cores
     shell:
         "{pantools} map -f -t={threads} {params.opts} {params.database} {input.sr1} {input.sr2}"

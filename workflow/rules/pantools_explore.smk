@@ -24,7 +24,7 @@ rule show_go:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} show_go {params.opts}{params.database}"
 
@@ -42,7 +42,7 @@ rule compare_go:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} compare_go {params.opts} {params.database}"
 
@@ -60,6 +60,6 @@ rule group_info:
     conda:
         "../envs/pantools.yaml"
     threads:
-        workflow.cores * 0.6
+        workflow.cores
     shell:
         "{pantools} group_info {params.opts} {params.database}"
